@@ -328,157 +328,416 @@ def recommend_movies_ultimate(user_input, movies):
 
 
 # =========================================================
-# 🎨 3. UI 裝飾：保持完美側邊欄 + 升級華麗中間搜尋主畫面
+# 🎨 3. UI 裝飾：膠捲＋電影院風格（只改介面，不動其他邏輯）
 # =========================================================
 st.set_page_config(page_title="大台北電影智慧推薦", page_icon="🎬", layout="centered")
 
 st.markdown("""
     <style>
-    /* 全域劇院黑底 */
+    /* =========================================================
+       0. 全域背景：電影院黑紅色調 + 投影感
+    ========================================================= */
     [data-testid="stAppViewContainer"] {
-        background-color: #0b0f19 !important;
+        background:
+            radial-gradient(circle at 50% 8%, rgba(255,255,255,0.08) 0%, transparent 20%),
+            radial-gradient(circle at 50% 100%, rgba(185, 28, 28, 0.10) 0%, transparent 28%),
+            linear-gradient(180deg, #240303 0%, #0c0c10 38%, #06070b 100%) !important;
+        position: relative !important;
+        overflow-x: hidden !important;
     }
 
-    /* 🧱 🧱 🧱 完美保留：側邊欄雙排對稱黃金圓球 🧱 🧱 🧱 */
+    /* 左右固定膠捲裝飾 */
+    [data-testid="stAppViewContainer"]::before,
+    [data-testid="stAppViewContainer"]::after {
+        content: "";
+        position: fixed;
+        top: 14px;
+        bottom: 14px;
+        width: 88px;
+        z-index: 0;
+        border-radius: 16px;
+        border: 3px solid #111111;
+        box-shadow: inset 0 0 25px rgba(0,0,0,0.85), 0 0 18px rgba(0,0,0,0.35);
+        background:
+            radial-gradient(circle at 12px 20px, #0a0a0a 0 6px, transparent 7px),
+            radial-gradient(circle at calc(100% - 12px) 20px, #0a0a0a 0 6px, transparent 7px),
+            linear-gradient(180deg, #8f0a0a 0%, #470303 55%, #250202 100%);
+        background-size: 100% 42px, 100% 42px, 100% 100%;
+        background-repeat: repeat-y, repeat-y, no-repeat;
+        opacity: 0.95;
+        pointer-events: none;
+    }
+
+    [data-testid="stAppViewContainer"]::before { left: 14px; }
+    [data-testid="stAppViewContainer"]::after  { right: 14px; }
+
+    /* 主要內容區維持在裝飾之上 */
+    .block-container {
+        position: relative;
+        z-index: 2;
+        padding-top: 2rem !important;
+        padding-bottom: 3rem !important;
+    }
+
+    /* =========================================================
+       1. 側邊欄：延續戲院暗紅風格
+    ========================================================= */
     [data-testid="stSidebar"] {
-        background: linear-gradient(180deg, #4c0519 0%, #1a0106 70%, #0b0f19 100%) !important;
+        background: linear-gradient(180deg, #3a0404 0%, #180103 65%, #0b0f19 100%) !important;
         position: relative !important;
         box-shadow: 8px 0 30px rgba(0,0,0,0.9) !important;
     }
+
     /* 右排圓球 */
     [data-testid="stSidebar"]::after {
-        content: ""; position: absolute; right: 0; top: 0; bottom: 0; width: 14px;
+        content: "";
+        position: absolute;
+        right: 0;
+        top: 0;
+        bottom: 0;
+        width: 14px;
         background-image: radial-gradient(circle, #f59e0b 35%, transparent 40%);
-        background-size: 14px 28px; background-repeat: repeat-y; border-left: 1px solid rgba(245, 158, 11, 0.4);
+        background-size: 14px 28px;
+        background-repeat: repeat-y;
+        border-left: 1px solid rgba(245, 158, 11, 0.4);
     }
-    /* 左排對稱圓球 */
+
+    /* 左排圓球 */
     [data-testid="stSidebar"]::before {
-        content: ""; position: absolute; left: 0; top: 0; bottom: 0; width: 14px;
+        content: "";
+        position: absolute;
+        left: 0;
+        top: 0;
+        bottom: 0;
+        width: 14px;
         background-image: radial-gradient(circle, #f59e0b 35%, transparent 40%);
-        background-size: 14px 28px; background-repeat: repeat-y; border-right: 1px solid rgba(245, 158, 11, 0.4);
+        background-size: 14px 28px;
+        background-repeat: repeat-y;
+        border-right: 1px solid rgba(245, 158, 11, 0.4);
         z-index: 10;
     }
+
     .sidebar-section {
-        background: rgba(0, 0, 0, 0.6) !important; border: 1px solid #f59e0b !important;
-        border-radius: 10px; padding: 16px; margin: 0 16px 22px 16px; box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+        background: rgba(0, 0, 0, 0.62) !important;
+        border: 1px solid #d97706 !important;
+        border-radius: 12px;
+        padding: 16px;
+        margin: 0 16px 22px 16px;
+        box-shadow: 0 4px 14px rgba(0,0,0,0.55);
+        backdrop-filter: blur(3px);
     }
-    .sidebar-title { color: #ffffff !important; font-size: 1.15rem; font-weight: 900; margin-bottom: 12px; border-bottom: 1px dashed #f59e0b; padding-bottom: 6px; text-shadow: 0 0 5px #f59e0b; }
-    .sidebar-text { color: #ffffff !important; font-size: 0.95rem; line-height: 1.6; }
-    .pulse-container { display: flex; align-items: center; margin-bottom: 8px; }
-    .pulse-dot { width: 10px; height: 10px; background: #22c55e; border-radius: 50%; margin-right: 10px; box-shadow: 0 0 8px #22c55e; }
+
+    .sidebar-title {
+        color: #ffffff !important;
+        font-size: 1.15rem;
+        font-weight: 900;
+        margin-bottom: 12px;
+        border-bottom: 1px dashed #f59e0b;
+        padding-bottom: 6px;
+        text-shadow: 0 0 5px rgba(245, 158, 11, 0.5);
+    }
+
+    .sidebar-text {
+        color: #f3f4f6 !important;
+        font-size: 0.95rem;
+        line-height: 1.6;
+    }
+
+    .pulse-container {
+        display: flex;
+        align-items: center;
+        margin-bottom: 8px;
+    }
+
+    .pulse-dot {
+        width: 10px;
+        height: 10px;
+        background: #22c55e;
+        border-radius: 50%;
+        margin-right: 10px;
+        box-shadow: 0 0 8px #22c55e;
+    }
 
 
-    /* 🌟🌟🌟 🔥 中間主要搜尋畫面 🔥 🌟🌟🌟 */
-    
-    /* 1. 百老匯霓虹燈招牌看板外框 */
+    /* =========================================================
+       2. 主視覺看板：更吸睛的電影招牌 / 膠捲票券感
+    ========================================================= */
     .broadway-marquee-box {
-        background: radial-gradient(circle at center, #1e1115 0%, #0d0608 100%) !important;
-        border: 4px double #f59e0b !important;
-        border-radius: 16px;
-        padding: 30px 20px;
+        background:
+            linear-gradient(90deg, rgba(0,0,0,0.94) 0%, rgba(70, 0, 0, 0.94) 16%, rgba(160, 0, 0, 0.98) 50%, rgba(70, 0, 0, 0.94) 84%, rgba(0,0,0,0.94) 100%) !important;
+        border: 4px solid #0a0a0a !important;
+        border-radius: 24px;
+        padding: 36px 30px 32px 30px;
         text-align: center;
-        box-shadow: 0 0 25px rgba(245, 158, 11, 0.35), inset 0 0 15px rgba(0,0,0,0.9);
-        margin-bottom: 35px;
+        box-shadow:
+            0 0 0 4px rgba(245, 158, 11, 0.35),
+            0 0 34px rgba(220, 38, 38, 0.48),
+            0 0 72px rgba(0,0,0,0.78),
+            inset 0 0 22px rgba(255,255,255,0.08),
+            inset 0 0 42px rgba(0,0,0,0.78);
+        margin-bottom: 38px;
+        position: relative;
+        overflow: hidden;
     }
-    
-    /* 招牌主標題字體：帶有極致復古金色微發光陰影 */
+
+    /* 外層像電影票券的虛線框 */
+    .broadway-marquee-box::before {
+        content: "";
+        position: absolute;
+        inset: 14px;
+        border: 2px dashed rgba(251, 191, 36, 0.62);
+        border-radius: 16px;
+        pointer-events: none;
+        box-shadow: inset 0 0 20px rgba(0,0,0,0.45);
+    }
+
+    /* 中央舞台聚光，讓標題更亮 */
+    .broadway-marquee-box::after {
+        content: "";
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        width: 86%;
+        height: 130%;
+        transform: translate(-50%, -50%);
+        background: radial-gradient(circle, rgba(255,255,255,0.16) 0%, rgba(245,158,11,0.10) 27%, transparent 68%);
+        pointer-events: none;
+        z-index: 0;
+    }
+
+    .broadway-marquee-box * {
+        position: relative;
+        z-index: 1;
+    }
+
+    /* 上方小標籤：像正在上映的電影招牌 */
+    .cinema-kicker {
+        display: inline-block;
+        color: #fff7ed !important;
+        background: rgba(0,0,0,0.52);
+        border: 1px solid rgba(245, 158, 11, 0.82);
+        border-radius: 999px;
+        padding: 6px 18px;
+        font-size: 0.92rem;
+        font-weight: 900;
+        letter-spacing: 2px;
+        margin-bottom: 14px;
+        box-shadow: 0 0 14px rgba(245, 158, 11, 0.28);
+    }
+
     .marquee-main-title {
         color: #ffffff !important;
-        font-size: 2.3rem !important;
-        font-weight: 900 !important;
-        letter-spacing: 2px;
-        margin: 0 0 10px 0 !important;
-        text-shadow: 0 0 4px #991b1b, 0 0 10px #f59e0b, 0 0 20px #FFE600 !important;
-    }
-    
-    /* 副標題說明字體 */
-    .marquee-sub-title {
-        color: #e5e7eb !important;
-        font-size: 1.1rem !important;
-        font-weight: bold !important;
-        text-shadow: 1px 1px 3px rgba(0,0,0,0.8);
+        font-size: 2.62rem !important;
+        font-weight: 1000 !important;
+        letter-spacing: 2.4px;
+        margin: 0 0 12px 0 !important;
+        line-height: 1.18;
+        text-shadow:
+            0 3px 0 #3b0303,
+            0 0 10px rgba(255,255,255,0.38),
+            0 0 24px rgba(245,158,11,0.45),
+            0 0 40px rgba(220,38,38,0.52);
     }
 
-    /* 2. 舞台焦點輸入框 (Spotlight Input Box) */
-    div[data-testid="stTextInput"] {
-        background: rgba(17, 24, 39, 0.8) !important;
-        padding: 20px;
-        border-radius: 12px;
-        border: 1px dashed rgba(245, 158, 11, 0.5);
-        box-shadow: 0 8px 20px rgba(0,0,0,0.5);
+    .title-highlight {
+        color: #fbbf24 !important;
+        text-shadow:
+            0 2px 0 #451a03,
+            0 0 12px rgba(251,191,36,0.88),
+            0 0 30px rgba(251,191,36,0.58);
     }
+
+    .marquee-sub-title {
+        color: #f8fafc !important;
+        font-size: 1.08rem !important;
+        font-weight: 800 !important;
+        line-height: 1.7;
+        text-shadow: 1px 1px 4px rgba(0,0,0,0.9);
+        margin-top: 4px;
+    }
+
+    /* 下方膠捲小燈點 */
+    .film-dot-row {
+        display: flex;
+        justify-content: center;
+        gap: 10px;
+        margin-top: 18px;
+    }
+
+    .film-dot-row span {
+        display: block;
+        width: 12px;
+        height: 12px;
+        background: #fbbf24;
+        border-radius: 3px;
+        box-shadow: 0 0 10px rgba(251,191,36,0.85);
+    }
+
+    /* =========================================================
+       3. 輸入框區塊：清楚可辨識優先
+    ========================================================= */
+    div[data-testid="stTextInput"] {
+        background: rgba(8, 10, 16, 0.82) !important;
+        padding: 20px;
+        border-radius: 14px;
+        border: 1px solid rgba(220, 38, 38, 0.50);
+        box-shadow: 0 10px 24px rgba(0,0,0,0.42);
+        backdrop-filter: blur(4px);
+    }
+
     div[data-testid="stTextInput"] label p {
-        color: #FFE600 !important; 
-        font-size: 1.4rem !important; 
+        color: #bfdbfe !important;
+        font-size: 1.28rem !important;
         font-weight: 900 !important;
         text-shadow: 2px 2px 4px rgba(0,0,0,0.9) !important;
-        letter-spacing: 1px;
+        letter-spacing: 0.6px;
     }
+
     div[data-testid="stTextInput"] input {
         background-color: #111827 !important;
-        color: #ffffff !important; 
-        font-size: 1.2rem !important; 
-        font-weight: bold !important;
-        border: 2px solid #f59e0b !important; 
-        border-radius: 8px !important;
+        color: #ffffff !important;
+        font-size: 1.12rem !important;
+        font-weight: 700 !important;
+        border: 2px solid #b91c1c !important;
+        border-radius: 10px !important;
         padding: 12px !important;
         transition: all 0.3s ease;
     }
-    /* 當輸入框被點擊時，觸發焦點外暈 */
-    div[data-testid="stTextInput"] input:focus {
-        border-color: #FFE600 !important;
-        box-shadow: 0 0 15px #FFE600 !important;
-    }
-    /* 高對比淡黃色 Placeholder 提示字體 */
-    div[data-testid="stTextInput"] input::placeholder { color: #FFE600 !important; opacity: 0.85 !important; font-weight: bold; }
 
-    /* 3. 百老匯按鈕樣式 */
+    div[data-testid="stTextInput"] input:focus {
+        border-color: #60a5fa !important;
+        box-shadow: 0 0 0 2px rgba(96, 165, 250, 0.22), 0 0 14px rgba(96, 165, 250, 0.32) !important;
+    }
+
+    div[data-testid="stTextInput"] input::placeholder {
+        color: #cbd5e1 !important;
+        opacity: 0.95 !important;
+        font-weight: 600;
+    }
+
+
+    /* =========================================================
+       4. 按鈕：電影票 / 海報風格
+    ========================================================= */
     div.stButton > button {
-        background: linear-gradient(180deg, #b91c1c 0%, #7f1d1d 100%) !important;
-        color: #ffffff !important; 
-        font-weight: 900 !important; 
-        font-size: 1.25rem !important;
-        border: 2px solid #f59e0b !important; 
+        background: linear-gradient(180deg, #dc2626 0%, #991b1b 100%) !important;
+        color: #ffffff !important;
+        font-weight: 900 !important;
+        font-size: 1.18rem !important;
+        border: 2px solid #f59e0b !important;
         border-radius: 30px !important;
         padding: 10px 24px !important;
-        box-shadow: 0 4px 15px rgba(185, 28, 28, 0.4) !important;
-        width: 100%; 
-        letter-spacing: 2px;
+        box-shadow: 0 4px 15px rgba(127, 29, 29, 0.45) !important;
+        width: 100%;
+        letter-spacing: 1.5px;
         transition: all 0.25s ease-in-out;
     }
-    /* 按鈕滑鼠懸浮特效 */
+
     div.stButton > button:hover {
-        transform: translateY(-3px) scale(1.01);
-        background: linear-gradient(180deg, #dc2626 0%, #991b1b 100%) !important;
-        box-shadow: 0 8px 25px #FFE600 !important;
-        color: #FFE600 !important;
+        transform: translateY(-2px) scale(1.01);
+        background: linear-gradient(180deg, #ef4444 0%, #b91c1c 100%) !important;
+        box-shadow: 0 8px 22px rgba(245, 158, 11, 0.25) !important;
+        color: #fff7ed !important;
     }
 
-    /* 4. 結果摺疊面板 */
+
+    /* =========================================================
+       5. 推薦結果卡片：黑底紅框，字清楚
+    ========================================================= */
     div[data-testid="stExpander"] {
-        background-color: #0f1422 !important; 
-        border: 2px solid #f59e0b !important; 
-        border-radius: 12px !important;
-        box-shadow: 0 6px 20px rgba(0,0,0,0.7) !important;
+        background: linear-gradient(180deg, rgba(9, 10, 14, 0.96) 0%, rgba(15, 20, 34, 0.96) 100%) !important;
+        border: 1px solid rgba(245, 158, 11, 0.50) !important;
         border-left: 8px solid #b91c1c !important;
+        border-radius: 12px !important;
+        box-shadow: 0 8px 22px rgba(0,0,0,0.55) !important;
+        overflow: hidden;
     }
-    /* 摺疊面板標題字體：加大、純黃金高對比色 */
+
+    div[data-testid="stExpander"] summary {
+        background: linear-gradient(90deg, rgba(64,0,0,0.85) 0%, rgba(10,10,10,0.35) 100%);
+        padding-top: 10px !important;
+        padding-bottom: 10px !important;
+    }
+
+    /* 推薦影片 title：改成有底色的醒目票券框 */
     div[data-testid="stExpander"] summary p {
-        color: #FFE600 !important; 
-        font-weight: 900 !important; 
-        font-size: 1.35rem !important;
-        text-shadow: 2px 2px 4px rgba(0,0,0,0.9);
+        display: inline-block !important;
+        background: linear-gradient(90deg, #fbbf24 0%, #f97316 45%, #b91c1c 100%) !important;
+        color: #111827 !important;
+        font-weight: 1000 !important;
+        font-size: 1.22rem !important;
+        padding: 7px 14px !important;
+        border-radius: 999px !important;
+        border: 2px solid rgba(255,255,255,0.85) !important;
+        box-shadow: 0 0 14px rgba(251,191,36,0.32) !important;
+        text-shadow: none !important;
+        letter-spacing: 0.4px;
     }
-    /* 面板內部詳細內文：全面轉為極致高對比亮白與金黃 */
+
     .movie-detail-text {
-        color: #ffffff !important; 
-        font-size: 1.1rem !important; 
-        line-height: 1.8 !important;
-        text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+        color: #f9fafb !important;
+        font-size: 1.08rem !important;
+        line-height: 1.85 !important;
+        text-shadow: 1px 1px 2px rgba(0,0,0,0.45);
     }
+
     .movie-detail-tag {
-        color: #f59e0b !important; 
+        color: #fbbf24 !important;
         font-weight: 900 !important;
+    }
+
+
+    /* =========================================================
+       6. 提示訊息字體可讀性
+    ========================================================= */
+    [data-testid="stAlertContainer"] {
+        border-radius: 12px !important;
+    }
+
+    [data-testid="stMarkdownContainer"] p,
+    .stMarkdown p {
+        color: inherit;
+    }
+
+
+    /* =========================================================
+       7. 手機 / 小螢幕：避免左右膠捲太擠
+    ========================================================= */
+    @media (max-width: 1100px) {
+        [data-testid="stAppViewContainer"]::before,
+        [data-testid="stAppViewContainer"]::after {
+            width: 56px;
+            opacity: 0.55;
+        }
+    }
+
+    @media (max-width: 760px) {
+        [data-testid="stAppViewContainer"]::before,
+        [data-testid="stAppViewContainer"]::after {
+            display: none;
+        }
+
+        .marquee-main-title {
+            font-size: 1.8rem !important;
+        }
+
+        .marquee-sub-title {
+            font-size: 0.96rem !important;
+        }
+
+        .cinema-kicker {
+            font-size: 0.78rem !important;
+            letter-spacing: 1px;
+        }
+
+        .film-dot-row span {
+            width: 9px;
+            height: 9px;
+        }
+
+        div[data-testid="stTextInput"] label p {
+            font-size: 1.1rem !important;
+        }
     }
     </style>
 """, unsafe_allow_html=True)
@@ -538,8 +797,12 @@ with st.sidebar:
 # 看板大標題（已修正為您要求的名稱）
 st.markdown("""
     <div class="broadway-marquee-box">
-        <h1 class="marquee-main-title">🎬 台北影城智慧電影推薦系統</h1>
-        <div class="marquee-sub-title">🎟️ 2026年5月完全體版：生活情境矩陣核心 × 五大實體院線熱映片單</div>
+        <div class="cinema-kicker">NOW SHOWING・TAIPEI CINEMA</div>
+        <h1 class="marquee-main-title">🎬 台北影城智慧<span class="title-highlight">電影</span>推薦系統</h1>
+        <div class="marquee-sub-title">🎟️ 2026年5月完全體版｜生活情境矩陣核心 × 五大實體院線熱映片單</div>
+        <div class="film-dot-row">
+            <span></span><span></span><span></span><span></span><span></span><span></span><span></span>
+        </div>
     </div>
 """, unsafe_allow_html=True)
 
