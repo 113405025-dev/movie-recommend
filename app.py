@@ -380,50 +380,105 @@ st.markdown("""
     }
 
     /* =========================================================
-       1. 側邊欄：延續戲院暗紅風格
+       1. 側邊欄：電影院紅色布幕感 + 可上下滾動
     ========================================================= */
     [data-testid="stSidebar"] {
-        background: linear-gradient(180deg, #3a0404 0%, #180103 65%, #0b0f19 100%) !important;
+        background:
+            linear-gradient(90deg, rgba(0,0,0,0.55) 0%, transparent 12%, transparent 88%, rgba(0,0,0,0.55) 100%),
+            repeating-linear-gradient(
+                90deg,
+                #2b0208 0px,
+                #5f0716 18px,
+                #8b1024 34px,
+                #5f0716 52px,
+                #2b0208 70px
+            ) !important;
         position: relative !important;
         box-shadow: 8px 0 30px rgba(0,0,0,0.9) !important;
+        overflow: hidden !important;
     }
 
-    /* 右排圓球 */
+    /* 讓側邊欄內容可以上下滾動 */
+    [data-testid="stSidebarContent"] {
+        max-height: 100vh !important;
+        overflow-y: auto !important;
+        overflow-x: hidden !important;
+        padding-bottom: 48px !important;
+        background:
+            radial-gradient(circle at 50% 0%, rgba(255,255,255,0.10) 0%, transparent 26%),
+            linear-gradient(180deg, rgba(40,0,8,0.15) 0%, rgba(0,0,0,0.35) 100%) !important;
+        position: relative !important;
+        z-index: 2 !important;
+    }
+
+    /* 側邊欄捲軸：細版金色，不會破壞布幕感 */
+    [data-testid="stSidebarContent"]::-webkit-scrollbar {
+        width: 8px;
+    }
+
+    [data-testid="stSidebarContent"]::-webkit-scrollbar-track {
+        background: rgba(0,0,0,0.35);
+        border-radius: 999px;
+    }
+
+    [data-testid="stSidebarContent"]::-webkit-scrollbar-thumb {
+        background: linear-gradient(180deg, #fbbf24 0%, #b45309 100%);
+        border-radius: 999px;
+    }
+
+    [data-testid="stSidebarContent"]::-webkit-scrollbar-thumb:hover {
+        background: linear-gradient(180deg, #fde68a 0%, #d97706 100%);
+    }
+
+    /* 布幕上方暗影，像舞台簾幕垂下來 */
+    [data-testid="stSidebar"] .stSidebar::before {
+        content: none;
+    }
+
+    /* 右排劇院燈泡 */
     [data-testid="stSidebar"]::after {
         content: "";
         position: absolute;
         right: 0;
         top: 0;
         bottom: 0;
-        width: 14px;
-        background-image: radial-gradient(circle, #f59e0b 35%, transparent 40%);
-        background-size: 14px 28px;
+        width: 16px;
+        background-image: radial-gradient(circle, #fbbf24 34%, #7c2d12 38%, transparent 44%);
+        background-size: 16px 30px;
         background-repeat: repeat-y;
-        border-left: 1px solid rgba(245, 158, 11, 0.4);
+        border-left: 1px solid rgba(251, 191, 36, 0.35);
+        box-shadow: -4px 0 12px rgba(0,0,0,0.35);
+        z-index: 3;
+        pointer-events: none;
     }
 
-    /* 左排圓球 */
+    /* 左排劇院燈泡 */
     [data-testid="stSidebar"]::before {
         content: "";
         position: absolute;
         left: 0;
         top: 0;
         bottom: 0;
-        width: 14px;
-        background-image: radial-gradient(circle, #f59e0b 35%, transparent 40%);
-        background-size: 14px 28px;
+        width: 16px;
+        background-image: radial-gradient(circle, #fbbf24 34%, #7c2d12 38%, transparent 44%);
+        background-size: 16px 30px;
         background-repeat: repeat-y;
-        border-right: 1px solid rgba(245, 158, 11, 0.4);
-        z-index: 10;
+        border-right: 1px solid rgba(251, 191, 36, 0.35);
+        box-shadow: 4px 0 12px rgba(0,0,0,0.35);
+        z-index: 3;
+        pointer-events: none;
     }
 
     .sidebar-section {
-        background: rgba(0, 0, 0, 0.62) !important;
-        border: 1px solid #d97706 !important;
-        border-radius: 12px;
+        background:
+            linear-gradient(180deg, rgba(0, 0, 0, 0.62) 0%, rgba(20, 5, 8, 0.72) 100%) !important;
+        border: 1px solid rgba(251, 191, 36, 0.78) !important;
+        border-radius: 14px;
         padding: 16px;
-        margin: 0 16px 22px 16px;
-        box-shadow: 0 4px 14px rgba(0,0,0,0.55);
+        margin: 0 18px 22px 18px;
+        box-shadow:
+            0 5px 16px rgba(0,0,0,0.65),
+            inset 0 0 16px rgba(255,255,255,0.035);
         backdrop-filter: blur(3px);
     }
 
@@ -432,15 +487,16 @@ st.markdown("""
         font-size: 1.15rem;
         font-weight: 900;
         margin-bottom: 12px;
-        border-bottom: 1px dashed #f59e0b;
+        border-bottom: 1px dashed rgba(251, 191, 36, 0.85);
         padding-bottom: 6px;
-        text-shadow: 0 0 5px rgba(245, 158, 11, 0.5);
+        text-shadow: 0 0 6px rgba(245, 158, 11, 0.55), 2px 2px 3px rgba(0,0,0,0.75);
     }
 
     .sidebar-text {
-        color: #f3f4f6 !important;
+        color: #f9fafb !important;
         font-size: 0.95rem;
         line-height: 1.6;
+        text-shadow: 1px 1px 2px rgba(0,0,0,0.65);
     }
 
     .pulse-container {
