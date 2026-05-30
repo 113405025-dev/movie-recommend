@@ -185,29 +185,45 @@ def recommend_movies(user_input, movies):
 
 
 # =========================================================
-# 🎨 頂級電影院視覺設計（輸入框大強烈醒目版）
+# 🎨 頂級電影院視覺設計（文字絕對清晰＋實體膠捲齒孔版）
 # =========================================================
 st.set_page_config(page_title="威秀電影推薦系統", page_icon="🎬", layout="wide")
 
 st.markdown("""
     <style>
-    /* 全域背景：極致黑色，襯托霓虹 */
+    /* 全域背景：極致電影院黑 */
     [data-testid="stAppViewContainer"] {
-        background-color: #050505;
+        background-color: #080808;
     }
 
-    /* 🎬 側邊欄美化：深紅絲絨 */
+    /* 🎞️ 側邊欄：深紅絲絨劇院帷幕風格 */
     [data-testid="stSidebar"] {
-        background: linear-gradient(180deg, #500000 0%, #150000 100%);
-        border-right: 8px double #ffcc00;
-        padding-top: 20px;
+        background: linear-gradient(180deg, #500005 0%, #1a0002 100%) !important;
+        border-right: 18px solid #000000 !important; /* 為側邊欄膠捲預留邊框 */
+        position: relative;
     }
-    [data-testid="stSidebar"] .stMarkdown p, [data-testid="stSidebar"] h2 {
+    
+    /* 修正側邊欄內所有文字顏色，全面強制改為高對比白與金，消滅死角 */
+    [data-testid="stSidebar"] .stMarkdown p, 
+    [data-testid="stSidebar"] h1, 
+    [data-testid="stSidebar"] h2, 
+    [data-testid="stSidebar"] h3 {
         color: #ffcc00 !important;
-        font-weight: bold;
+        text-shadow: 2px 2px 4px #000000;
+        font-weight: bold !important;
+    }
+    
+    /* 修正側邊欄內建的藍色提示區塊（st.info/st.success）改為高對比文字 */
+    [data-testid="stSidebar"] div[data-testid="stNotification"] {
+        background-color: #2a0004 !important;
+        border: 1px solid #ffcc00 !important;
+    }
+    [data-testid="stSidebar"] div[data-testid="stNotification"] div {
+        color: #ffffff !important; /* 確保提示框內的字絕對是白色 */
+        font-weight: 500;
     }
 
-    /* 頂部霓虹招牌標題 */
+    /* 頂部發光霓虹燈箱 */
     .cinema-marquee {
         background-color: #111111;
         padding: 35px;
@@ -218,60 +234,67 @@ st.markdown("""
         margin-bottom: 35px;
     }
     .marquee-title {
-        color: #fff !important;
+        color: #ffffff !important;
         font-weight: 900 !important;
         font-size: 3.2rem !important;
-        text-shadow: 0 0 8px #fff, 0 0 20px #ffcc00, 0 0 30px #ffcc00;
+        text-shadow: 0 0 8px #ffffff, 0 0 20px #ffcc00, 0 0 30px #ffcc00;
         letter-spacing: 6px;
     }
 
-    /* 🎯 核心醒目化：Streamlit 原生輸入格 CSS 強制重寫 */
+    /* 🎯 核心輸入框：強制純白背景、純黑文字、發光金框，絕對極致清晰 */
     div[data-testid="stTextInput"] input {
-        background-color: #ffffff !important; /* 強制純白背景 */
-        color: #000000 !important;            /* 強制純黑文字，絕對看得見 */
-        font-size: 1.3rem !important;         /* 放大字體 */
+        background-color: #ffffff !important; 
+        color: #000000 !important;            
+        font-size: 1.3rem !important;         
         font-weight: bold !important;
-        border: 3px solid #ffcc00 !important; /* 霓虹金邊 */
+        border: 3.5px solid #ffcc00 !important; 
         border-radius: 8px !important;
-        box-shadow: 0 0 15px #ffcc00 !important; /* 金光外發散 */
+        box-shadow: 0 0 15px #ffcc00 !important; 
         padding: 15px !important;
     }
-    /* 聚焦時的輸入格樣式 */
     div[data-testid="stTextInput"] input:focus {
-        border: 3px solid #ff0033 !important;
-        box-shadow: 0 0 20px #ff0033 !important; /* 點擊時變霓虹紅 */
+        border: 3.5px solid #ff0033 !important;
+        box-shadow: 0 0 20px #ff0033 !important; 
+    }
+    /* 提示小字修正為純白 */
+    div[data-testid="stTextInput"] label p {
+        color: #ffffff !important;
+        font-size: 1.1rem !important;
+        font-weight: bold;
     }
 
-    /* 🎬 範例 4 復古黃黑電影膠捲卡片 (Film Strip Card) */
+    /* 🎬 復古黃黑電影膠捲卡片區區塊 */
     .retro-film-strip {
-        background-color: #161616;
-        border-left: 5px solid #ffcc00;
-        border-right: 5px solid #ffcc00;
+        background-color: #151515;
+        border-left: 6px solid #ffcc00;
+        border-right: 6px solid #ffcc00;
         margin-bottom: 35px;
         box-shadow: 0 12px 25px rgba(0,0,0,0.8);
-        border-radius: 6px;
+        border-radius: 4px;
         overflow: hidden;
     }
-    /* 膠捲齒孔設計：黑底黃孔 */
+    /* 膠捲齒孔：黑底黃孔 11A ▷ 12 經典美式風格 */
     .film-holes-top {
         background-color: #000000;
         color: #ffcc00;
-        font-family: monospace;
+        font-family: monospace, sans-serif;
         font-size: 16px;
-        letter-spacing: 12px;
-        padding: 6px;
+        letter-spacing: 14px;
+        padding: 8px;
         text-align: center;
         border-bottom: 2px solid #222;
+        font-weight: bold;
     }
     .film-holes-bottom {
         background-color: #000000;
         color: #ffcc00;
-        font-family: monospace;
+        font-family: monospace, sans-serif;
         font-size: 16px;
-        letter-spacing: 12px;
-        padding: 6px;
+        letter-spacing: 14px;
+        padding: 8px;
         text-align: center;
         border-top: 2px solid #222;
+        font-weight: bold;
     }
     .film-content {
         padding: 25px;
@@ -281,7 +304,6 @@ st.markdown("""
         color: #ffcc00 !important;
         font-size: 1.9rem !important;
         font-weight: 800 !important;
-        text-shadow: 2px 2px 4px #000;
         margin-bottom: 12px;
     }
     .badge-red {
@@ -293,52 +315,56 @@ st.markdown("""
         background-color: #222222;
         padding: 18px;
         border-radius: 6px;
-        color: #eeeeee;
+        color: #ffffff !important; /* 確保內容文字絕對是純白清晰 */
         font-size: 1.1rem;
         border-left: 4px solid #ffcc00;
         margin-top: 15px;
         line-height: 1.6;
     }
 
-    /* 數據儀表板 */
-    .stMetric label, .stMetric div {
-        color: #ffcc00 !important;
+    /* 數據牆標籤文字高亮 */
+    .stMetric label {
+        color: #ffffff !important;
         font-weight: bold !important;
+        font-size: 1.1rem !important;
+    }
+    .stMetric div[data-testid="stMetricValue"] {
+        color: #ffcc00 !important;
+        font-weight: 900 !important;
     }
     
-    /* 威秀紅高級發光大按鈕 */
+    /* 高級劇院紅色發光按鈕 */
     div.stButton > button:first-child {
         background: linear-gradient(90deg, #ff0033 0%, #b30022 100%) !important;
-        color: white !important;
+        color: #ffffff !important;
         border: 2px solid #ffcc00 !important;
         border-radius: 8px !important;
         font-size: 1.3rem !important;
         font-weight: bold !important;
         padding: 12px 0px !important;
         box-shadow: 0 4px 15px rgba(255, 0, 51, 0.4);
-        transition: all 0.3s ease;
     }
     div.stButton > button:first-child:hover {
         box-shadow: 0 0 25px #ff0033 !important;
-        transform: scale(1.01);
     }
     </style>
 """, unsafe_allow_html=True)
 
 # =========================================================
-# 🏠 側邊欄美化區
+# 🏠 側邊欄美化區（排除破圖圖示，文字全面清晰化）
 # =========================================================
 with st.sidebar:
-    st.markdown("## 🎞️ 影廳導覽")
-    st.image("https://img.icons8.com/clouds/200/movie-projector.png")
+    st.markdown("# 🎞️ 影廳導覽")
     st.write("---")
     st.markdown("### 🍿 觀影小撇步")
-    st.info("輸入「憂鬱」或「想哭」，系統會為你挑選觸動心靈的傑作。")
-    st.markdown("### 🎭 影城狀態")
-    st.success("威秀影城：連線中")
-    st.success("藝術院線：同步中")
+    st.info("💡 輸入「憂鬱」或「想哭」，系統會自動為您交叉比對，挑選出最能觸動心靈的精選藝術傑作。")
     st.write("---")
-    st.markdown("© 2026 台北電影智慧推薦")
+    st.markdown("### 🎭 影城狀態系統")
+    st.success("🟢 威秀影城連線：正常")
+    st.success("🟢 藝術獨立院線：同步中")
+    st.write("---")
+    st.markdown("### 📅 系統年份")
+    st.warning("✨ 台北電影智慧推薦 2026 版")
 
 # =========================================================
 # 🎬 主頁面內容
@@ -356,18 +382,18 @@ st.markdown("""
 db = get_absolute_comprehensive_database_2026()
 col_m1, col_m2 = st.columns(2)
 with col_m1:
-    st.metric(label="🎬 院線總部數", value=f"{len(db)} 部")
+    st.metric(label="🎬 當前合作院線總部數", value=f"{len(db)} 部")
 with col_m2:
-    st.metric(label="🔥 匹配演算引擎", value="RapidFuzz PRO")
+    st.metric(label="🔥 智慧匹配演算引擎", value="RapidFuzz PRO")
 
 st.write("---")
 
-# 售票亭高對比提示字
-st.markdown("<h2 style='color: #ffffff; text-shadow: 0 0 10px #ff0033; font-weight: 800;'>🎟️ 售票口：請輸入您今天的心情或想看的關鍵字？</h2>", unsafe_allow_html=True)
+# 售票口大提示字（修正為清晰的高發光字體）
+st.markdown("<h2 style='color: #ffffff; text-shadow: 0 0 12px #ff0033; font-weight: 800; margin-bottom:10px;'>🎟️ 售票口：請輸入您今天的心情或想看的關鍵字？</h2>", unsafe_allow_html=True)
 
-# 醒目化改造後的輸入框
+# 超高對比黃金霓虹邊框輸入框
 user_input = st.text_input(
-    "👉 提示：輸入完成後，請點擊下方大紅按鈕啟動推薦", 
+    "👉 貼心提示：輸入完畢後，請點擊下方大紅按鈕進行劃位推薦", 
     placeholder="在此輸入情境（例如：我分手了、今天心情不錯、想看大場面飆車...）"
 )
 
@@ -386,21 +412,21 @@ if st.button("🎬 啟動智慧劃位推薦", use_container_width=True):
             st.balloons()
             st.success(f"🧠 系統成功解析情境！幫您找到 {len(recommended)} 部適合的電影：")
             
-            # 引入範例 4 的黃黑超精緻復古底片卡片
+            # 渲染黃黑經典齒孔底片膠捲卡片，文字強制純白，絕對清晰！
             for m in recommended:
                 st.markdown(f"""
                 <div class="retro-film-strip">
-                    <div class="film-holes-top">■   ■   ■   11A ▷   ■   ■   ■   12   ■   ■   ■</div>
+                    <div class="film-holes-top">■   ■   ■   11A  ▷  ■   ■   ■   12  ■   ■   ■</div>
                     <div class="film-content">
                         <div class="movie-title">🍿 {m['title']}</div>
                         <div style="margin-top: 10px; margin-bottom: 10px;">
                             <span class="badge-red">🎭 類型：{m['genre']}</span>
-                            <span style="color: #ffcc00; font-weight: bold; font-size: 1.1rem;">📍 上映影城：{m['theater']}</span>
+                            <span style="color: #ffcc00; font-weight: bold; font-size: 1.1rem; text-shadow: 1px 1px 2px #000;">📍 上映影城：{m['theater']}</span>
                         </div>
                         <div class="story-box">
-                            <b>📝 劇情簡介：</b>{m['story']}
+                            <b style="color: #ffcc00;">📝 劇情簡介：</b>{m['story']}
                         </div>
                     </div>
-                    <div class="film-holes-bottom">■   ■   ■   11A ▷   ■   ■   ■   12   ■   ■   ■</div>
+                    <div class="film-holes-bottom">■   ■   ■   11A  ▷  ■   ■   ■   12  ■   ■   ■</div>
                 </div>
                 """, unsafe_allow_html=True)
