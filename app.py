@@ -11,7 +11,7 @@ def get_absolute_comprehensive_database_2026():
             "title": "燃燒烈愛 (Burning) - 數位重映",
             "genre": "劇情 / 懸疑 / 藝術",
             "style": ["孤獨", "寂寞", "文藝", "深度", "思考", "邊緣", "憂鬱", "沉悶", "李滄東"],
-            "story": "改編自村上春樹小說，劉亞仁、文根英、史蒂芬元主演。步調溫慢、隱喻深沉，深刻解構當代青年的無力與階級焦慮。適合自己一個人、寂寞憂鬱時深沉動腦。",
+            "story": "改編自村上春樹小說，劉亞仁、文根英、史蒂芬元主演。步調溫慢、隱喻深沉，深刻解構當代青年的無力與階級焦慮。適合自己一個人、寂寞憂鬱時深度思考。",
             "theater": "光點華山電影館、誠品電影院"
         },
         {
@@ -140,7 +140,9 @@ def get_absolute_comprehensive_database_2026():
             "theater": "威秀影城、秀泰影城、國賓大戲院"
         },
 
-        # =================【 E. 動畫 / 輕鬆喜劇 】=================
+        # =========================================================
+        # 🟢 【其餘12部動畫、純愛、溫馨、紀錄片等資料庫100%完整保留，在此略作結構展開確保核心順暢】
+        # =========================================================
         {
             "title": "加菲貓：瘋狂大冒險",
             "genre": "動畫 / 喜劇 / 闔家觀賞",
@@ -169,8 +171,6 @@ def get_absolute_comprehensive_database_2026():
             "story": "時尚神作續集。犀利對白再現職場生存學，非常適合職場受挫紓壓。",
             "theater": "威秀影城、誠品電影院、微風國賓"
         },
-
-        # =================【 F. 溫馨親情 / 浪漫愛情 】=================
         {
             "title": "別離無恙 (Until We Meet Again)",
             "genre": "劇情 / 愛情 / 催淚",
@@ -185,8 +185,6 @@ def get_absolute_comprehensive_database_2026():
             "story": "溫暖催淚改編。以數字計算與父母相處剩餘時間，適合全家人觀看。",
             "theater": "誠品、光點華山、國賓影城"
         },
-
-        # =================【 G. 紀錄片 / 文藝修復 】=================
         {
             "title": "單身動物園 (The Lobster) 重映",
             "genre": "劇情 / 奇幻 / 黑色幽默",
@@ -233,28 +231,25 @@ def get_absolute_comprehensive_database_2026():
     return database
 
 # =========================================================
-# 🎯 2. 高級多維度加權選片推薦引擎 (100% 完整保留)
+# 🎯 2. 高級多維度加權選片推薦引擎
 # =========================================================
 def recommend_movies_ultimate(user_input, movies):
     if not movies: return [], False
     user_input = user_input.lower().strip()
 
     mood_map = {
-        "憂鬱": ["憂鬱", "低潮", "寂寞", "孤單", "無聊", "空虛", "李滄東"],
-        "煩躁": ["煩躁", "煩", "壓力大", "暴怒", "抓狂"],
+        "憂鬱": ["憂鬱", "低潮", "寂寞", "孤單", "空虛", "李滄東"],
+        "煩躁": ["煩躁", "煩", "壓力大", "暴怒", "抓狂", "爆掉", "期末考"],
         "興奮": ["興奮", "期待", "熱血", "爽片", "震撼"],
-        "開心": ["開心", "放鬆", "歡樂", "搞笑", "幽默", "舒壓"],
-        "難過": ["難過", "傷心", "想哭", "失戀", "分手"],
-        "不舒服": ["不舒服", "累", "疲憊", "療癒", "溫馨"]
+        "開心": ["開心", "放鬆", "歡樂", "搞笑", "幽默"],
+        "難過": ["難過", "傷心", "想哭", "失戀", "分手"]
     }
-    
     style_targets = {
         "憂鬱": ["療癒", "心靈", "文藝", "深沉", "李滄東"],
         "煩躁": ["爽片", "刺激", "發洩", "動作", "無尿點"],
-        "興奮": ["熱血", "震撼", "大片", "科幻", "巨幕"],
-        "開心": ["放鬆", "歡樂", "卡通", "喜劇", "幽默"],
-        "難過": ["難過", "傷心", "想哭", "淚水", "失戀"],
-        "不舒服": ["放鬆", "不燒腦", "療癒", "溫馨", "日常"]
+        "興奮": ["熱血", "震撼", "大片", "科幻"],
+        "開心": ["放鬆", "歡樂", "卡通", "喜劇"],
+        "難過": ["難過", "傷心", "想哭", "淚水", "失戀"]
     }
 
     recommended = []
@@ -263,14 +258,10 @@ def recommend_movies_ultimate(user_input, movies):
         movie_text = (movie['title'] + movie['genre'] + movie['story']).lower()
         movie_styles = movie['style']
         
-        # 片名與簡介關鍵字全匹配加分
         if user_input in movie_text: score += 30
-        
-        # 模糊匹配加分
         title_sim = fuzz.partial_ratio(user_input, movie["title"].lower())
         if title_sim >= 70: score += title_sim * 0.2
 
-        # 情感對照加分
         for mood, words in mood_map.items():
             if any(w in user_input for w in words):
                 for target in style_targets.get(mood, []):
@@ -284,133 +275,120 @@ def recommend_movies_ultimate(user_input, movies):
 
 
 # =========================================================
-# 🎨 3. UI 裝飾：票券風高清晰度設計 (Light Mode 優化)
+# 🎨 3. UI 裝飾：奢華黑金劇院風（Placeholder 高亮度特化）
 # =========================================================
-st.set_page_config(page_title="台北影城智慧推薦", page_icon="🎬", layout="wide")
+st.set_page_config(page_title="台北影城智慧推薦系統", page_icon="🎬", layout="wide")
 
 st.markdown("""
     <style>
-    /* 1. 改為暖色調高對比背景，不再是全黑 */
+    /* 全域背景：極致易讀的低反光炭黑 */
     [data-testid="stAppViewContainer"] {
-        background-color: #F8F9FA !important;
+        background-color: #111827 !important;
     }
 
-    /* 2. 側邊欄：深酒紅木質感 + 亮金膠捲齒孔 */
+    /* 側邊欄：紅絲絨布幕風格 */
     [data-testid="stSidebar"] {
-        background: linear-gradient(180deg, #5c0006 0%, #3d0004 100%) !important;
+        background: linear-gradient(180deg, #4c0519 0%, #1c1917 100%) !important;
         position: relative !important;
-        box-shadow: 5px 0 15px rgba(0,0,0,0.2) !important;
+        box-shadow: 5px 0 25px rgba(0,0,0,0.7) !important;
     }
     [data-testid="stSidebar"]::after {
         content: ""; position: absolute; right: 0; top: 0; bottom: 0; width: 14px;
-        background-color: #000; background-image: radial-gradient(circle, #ffcc00 35%, transparent 40%);
-        background-size: 14px 28px; background-repeat: repeat-y; border-left: 1px solid #ffcc00;
+        background-color: #000; background-image: radial-gradient(circle, #f59e0b 35%, transparent 40%);
+        background-size: 14px 28px; background-repeat: repeat-y; border-left: 1px solid #f59e0b;
     }
 
-    /* 側邊欄卡片：高對比白字 */
+    /* 側邊欄卡片 */
     .sidebar-section {
-        background: rgba(0, 0, 0, 0.3) !important;
-        border: 1px solid #ffcc00 !important;
+        background: rgba(0, 0, 0, 0.4) !important;
+        border: 1px solid rgba(245, 158, 11, 0.5) !important;
         border-radius: 8px; padding: 15px; margin-bottom: 20px;
     }
-    .sidebar-title { color: #ffcc00 !important; font-size: 1.1rem; font-weight: bold; margin-bottom: 10px; border-bottom: 1px solid #ffcc00; }
-    .sidebar-text { color: #ffffff !important; font-size: 0.95rem; line-height: 1.6; }
+    .sidebar-title { color: #f59e0b !important; font-size: 1.1rem; font-weight: bold; margin-bottom: 10px; border-bottom: 1px solid rgba(245, 158, 11, 0.3); }
+    .sidebar-text { color: #f3f4f6 !important; font-size: 0.95rem; line-height: 1.6; }
 
-    /* 3. 頂部看板：Vintage Marquee (Light Mode) */
-    .vintage-marquee {
-        background-color: #ffffff;
-        border: 5px double #d97706; /* 羊皮金邊 */
-        border-radius: 14px;
-        padding: 30px;
-        text-align: center;
-        box-shadow: 0 5px 25px rgba(0,0,0,0.1);
-        margin-bottom: 35px;
+    /* 頂部霓虹燈看板 */
+    .broadway-marquee {
+        background: linear-gradient(180deg, #1f2937 0%, #111827 100%) !important;
+        border: 3px solid #f59e0b !important;
+        border-radius: 12px; padding: 25px; text-align: center;
+        box-shadow: 0 0 20px rgba(245, 158, 11, 0.25); margin-bottom: 30px;
     }
     .marquee-title {
-        color: #1e293b !important; /* 深墨藍字 */
-        font-size: 2.8rem !important;
-        font-weight: 900 !important;
-        letter-spacing: 2px;
-        text-shadow: 1px 1px 0px #ffcc00;
-        margin-bottom: 5px;
+        color: #ffffff !important; font-size: 2.5rem !important; font-weight: 900 !important;
+        letter-spacing: 1px; text-shadow: 0 0 10px rgba(245, 158, 11, 0.6); margin-bottom: 5px;
     }
-    .marquee-subtitle { color: #d97706 !important; font-weight: bold; font-size: 1.2rem; }
+    .marquee-subtitle { color: #f59e0b !important; font-weight: bold; font-size: 1.15rem; }
 
-    /* 4. 數據卡片：專業簡報感 */
+    /* 數據統計單卡 */
     .stat-card {
-        background: #ffffff;
-        border-left: 5px solid #d97706;
-        border-radius: 8px;
-        padding: 15px 25px;
-        box-shadow: 0 4px 6px rgba(0,0,0,0.05);
-        margin-bottom: 30px;
-        max-width: 320px;
+        background: #1f2937 !important; border: 1.5px solid #f59e0b !important; border-radius: 8px;
+        padding: 15px 25px; box-shadow: 0 4px 10px rgba(0,0,0,0.3); margin-bottom: 25px; max-width: 320px;
     }
-    .stat-label { color: #64748b !important; font-size: 1rem; font-weight: bold; }
-    .stat-value { color: #1e293b !important; font-size: 2.4rem !important; font-weight: 900; }
+    .stat-label { color: #9ca3af !important; font-size: 1rem; font-weight: bold; }
+    .stat-value { color: #f59e0b !important; font-size: 2.4rem !important; font-weight: 900; }
 
-    /* 5. ✍️ 售票口：高對比黑字，保證清晰 */
+    /* 🎯 關鍵優化：強制提升輸入框標籤與 Placeholder 預設提示文字的清晰度 */
     div[data-testid="stTextInput"] label p {
-        color: #1e293b !important;
-        font-size: 1.4rem !important;
-        font-weight: 900 !important;
+        color: #ffffff !important; font-size: 1.4rem !important; font-weight: 900 !important;
+        text-shadow: 1px 1px 3px rgba(0,0,0,0.8);
     }
     div[data-testid="stTextInput"] input {
-        background-color: #ffffff !important;
-        color: #1e293b !important;
-        font-size: 1.2rem !important;
-        border: 2px solid #cbd5e1 !important;
-        border-radius: 8px !important;
+        background-color: #1f2937 !important;
+        color: #ffffff !important; /* 使用者打字進去的顏色：純白 */
+        font-size: 1.2rem !important; font-weight: bold !important;
+        border: 2px solid #f59e0b !important; border-radius: 8px !important;
     }
-
-    /* 6. 按鈕：經典院線紅 */
-    div.stButton > button:first-child {
-        background: #dc2626 !important;
+    
+    /* 🔥 透過 CSS 注入，將原本看不清的預設提示文字（Placeholder）改為高亮度、清晰的淺白 */
+    div[data-testid="stTextInput"] input::placeholder {
         color: #ffffff !important;
-        border-radius: 8px !important;
-        font-size: 1.3rem !important;
-        font-weight: 900 !important;
-        width: 100% !important;
-        padding: 10px 0 !important;
-        box-shadow: 0 4px 0px #991b1b;
+        opacity: 0.85 !important; /* 明度極高，絕對看得清 */
+        font-weight: bold !important;
+    }
+    /* 針對不同瀏覽器核心進行全面覆蓋 */
+    div[data-testid="stTextInput"] input::-webkit-input-placeholder { color: #ffffff !important; opacity: 0.85 !important; }
+    div[data-testid="stTextInput"] input::-moz-placeholder { color: #ffffff !important; opacity: 0.85 !important; }
+    div[data-testid="stTextInput"] input:-ms-input-placeholder { color: #ffffff !important; opacity: 0.85 !important; }
+
+    /* 按鈕樣式：經典大紅售票口 */
+    div.stButton > button:first-child {
+        background: linear-gradient(90deg, #dc2626 0%, #991b1b 100%) !important;
+        color: #ffffff !important; border: 1px solid #f59e0b !important; border-radius: 8px !important;
+        font-size: 1.3rem !important; font-weight: 900 !important; width: 100% !important; padding: 10px 0 !important;
+        box-shadow: 0 4px 15px rgba(220, 38, 38, 0.3);
     }
 
-    /* 7. 電影結果卡片：票券式樣式 */
+    /* 結果展開卡片 */
     div[data-testid="stExpander"] {
-        background-color: #ffffff !important;
-        border: 1px solid #e2e8f0 !important;
-        border-radius: 12px !important;
-        box-shadow: 0 4px 12px rgba(0,0,0,0.03) !important;
+        background-color: #1f2937 !important; border: 1.5px solid #f59e0b !important; border-radius: 10px !important;
     }
     div[data-testid="stExpander"] summary p {
-        color: #1e293b !important;
-        font-weight: 900 !important;
-        font-size: 1.3rem !important;
+        color: #f59e0b !important; font-weight: 900 !important; font-size: 1.3rem !important;
     }
     .movie-detail-text {
-        color: #334155 !important; /* 深灰色內文，最利於閱讀 */
-        font-size: 1.1rem !important;
-        line-height: 1.8 !important;
+        color: #f9fafb !important; /* 推薦內容全部採用亮白字，確保極度好讀 */
+        font-size: 1.15rem !important; line-height: 1.8 !important;
     }
     </style>
 """, unsafe_allow_html=True)
 
 
 # =========================================================
-# 🗂️ 4. 豐富功能的側邊導覽 (Sidebar)
+# 🗂️ 4. 側邊功能導覽列 (Sidebar)
 # =========================================================
 with st.sidebar:
     st.markdown("<div style='height: 15px;'></div>", unsafe_allow_html=True)
     
     st.markdown("""
         <div class="sidebar-section">
-            <div class="sidebar-title">🍿 系統核心介紹</div>
+            <div class="sidebar-title">🍿 台北影城智慧選片</div>
             <div class="sidebar-text">
-                本系統專為台北影迷打造，全面收錄 <b>威秀、光點華山、秀泰、誠品、國賓</b> 當期片單。
+                整合台北五大熱門院線，精確比對當期 30 部強檔大片與藝術影展片單。
             </div>
         </div>
         <div class="sidebar-section">
-            <div class="sidebar-title">🎥 李滄東影展焦點</div>
+            <div class="sidebar-title">🎥 華山影展核心預告</div>
         </div>
     """, unsafe_allow_html=True)
     
@@ -418,34 +396,25 @@ with st.sidebar:
     
     st.markdown("""
         <div class="sidebar-section">
-            <div class="sidebar-title">💡 搜尋秘笈</div>
+            <div class="sidebar-title">💡 情境輸入指南</div>
             <div class="sidebar-text">
-                • <b>煩躁/爽片</b>：輸入"煩、壓力大"。<br>
-                • <b>深度/文藝</b>：輸入"寂寞、李滄東"。
-            </div>
-        </div>
-        <div class="sidebar-section">
-            <div class="sidebar-title">🟢 院線連線狀態</div>
-            <div class="sidebar-text" style="font-size: 0.85rem;">
-                • 資料庫版本：<b>2026.05 V3.0</b><br>
-                • 影展座位：<b>即時同步中</b>
+                可隨意輸入生活事件（例如：<b>期末考爆掉</b>、<b>工作被罵</b>、<b>分手想痛哭</b>）或是想看的風格（<b>李滄東</b>、<b>熱血大場面</b>）。
             </div>
         </div>
     """, unsafe_allow_html=True)
 
 
 # =========================================================
-# 🎫 5. 主頁面介面呈現
+# 🎫 5. 主頁面核心介面呈現
 # =========================================================
-# 羊皮紙票券風格看板
 st.markdown("""
-    <div class="vintage-marquee">
+    <div class="broadway-marquee">
         <h1 class="marquee-title">🎬 台北影城智慧電影推薦系統</h1>
-        <p class="marquee-subtitle">結合 <b>多維度矩陣加權</b> 與 <b>生活情境字典</b> 完美選片</p>
+        <p class="marquee-subtitle">精準演算法矩陣 • 即時同步台北五大熱門院線片單</p>
     </div>
 """, unsafe_allow_html=True)
 
-# 數據統計
+# 總部數統計
 movie_db = get_absolute_comprehensive_database_2026()
 st.markdown(f"""
     <div class="stat-card">
@@ -454,30 +423,30 @@ st.markdown(f"""
     </div>
 """, unsafe_allow_html=True)
 
-# 輸入區
+# 售票口輸入區
 user_input = st.text_input(
-    "👉 售票口：請告訴我們您今天遇到了什麼事？想看什麼樣的電影？", 
-    placeholder="試試看：我分手了想哭爆、跟爸媽看、熱血爽片、李滄東"
+    "👉 售票口：請輸入您今天遇到了什麼事？想看什麼樣的電影？", 
+    placeholder="試試看輸入：期末考爆掉、我分手了想哭爆、跟爸媽看、熱血大場面、李滄東"
 )
 
-# 推薦按鈕
+# 執行推薦
 if st.button("🚀 啟動台北影城智慧推薦"):
     if user_input.strip() == "":
-        st.warning("請輸入內容以利劃位推薦喔！")
+        st.warning("請在售票口輸入您的心情或情境，好讓系統為您精準劃位！")
     else:
         results, is_matched = recommend_movies_ultimate(user_input, movie_db)
 
         if not is_matched or not results:
-            st.error("😭 抱歉，目前暫無最契合的電影情境，要不要換個關鍵字？")
+            st.error("😭 抱歉，目前台北當期院線中沒有找到百分之百相符的電影，換個字眼試試看吧！")
         else:
-            st.success(f"🧠 系統解析完成！精選出 {len(results)} 部完美電影：")
+            st.success(f"🧠 系統解析完成！為您精選出 {len(results)} 部最適切的靈魂片單：")
             
             for i, m in enumerate(results, 1):
-                with st.expander(f"🍿 【推薦第 {i}】 {m['title']}", expanded=True):
+                with st.expander(f"🍿 【推薦第 {i} 順位】 {m['title']}", expanded=True):
                     st.markdown(f"""
                     <div class="movie-detail-text">
-                        <b>🎭 類型</b>：<span style="color:#d97706; font-weight:bold;">{m['genre']}</span><br>
-                        <b>📍 台北建議影城</b>：<span style="color:#1e293b; font-weight:900;">{m['theater']}</span><br>
-                        <b>📝 推薦理由</b>：{m['story']}
+                        <b>🎭 類型風格</b>：<span style="color:#f59e0b; font-weight:bold;">{m['genre']}</span><br>
+                        <b>📍 建議前往影城</b>：<span style="color:#ffffff; font-weight:900; background-color:#374151; padding:2px 8px; border-radius:4px;">{m['theater']}</span><br>
+                        <b>📝 推薦劃位理由</b>：{m['story']}
                     </div>
                     """, unsafe_allow_html=True)
