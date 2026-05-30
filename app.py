@@ -373,7 +373,6 @@ with st.sidebar:
 st.markdown("""
     <div class="broadway-marquee">
         <h1 class="broadway-title">🎬 台北影城智慧電影推薦系統</h1>
-        <p class="broadway-subtitle">本系統已將 <b>RapidFuzz 模糊匹配</b> 與 <b>雙向生活字典</b> 完美整合！</p>
     </div>
 """, unsafe_allow_html=True)
 
@@ -409,3 +408,21 @@ if st.button("🚀 啟動智慧推薦"):
                     st.markdown(f"**🎭 電影類型**：`{m['genre']}`")
                     st.markdown(f"**📍 上映影城**：{m['theater']}")
                     st.markdown(f"**📝 劇情簡介**：{m['story']}")
+# 渲染高質感雙排方形齒孔底片膠捲卡片，文字強制純白！
+            for m in recommended:
+                st.markdown(f"""
+                <div class="retro-film-strip">
+                    <div class="film-holes-top">■   ■   ■   11A  ▷  ■   ■   ■   12  ■   ■   ■</div>
+                    <div class="film-content">
+                        <div class="movie-title">🍿 {m['title']}</div>
+                        <div style="margin-top: 10px; margin-bottom: 10px;">
+                            <span class="badge-red">🎭 類型：{m['genre']}</span>
+                            <span style="color: #ffcc00; font-weight: 900; font-size: 1.15rem; text-shadow: 1px 1px 2px #000;">📍 上映影城：{m['theater']}</span>
+                        </div>
+                        <div class="story-box">
+                            <b style="color: #ffcc00; font-size: 1.2rem;">📝 劇情簡介：</b>{m['story']}
+                        </div>
+                    </div>
+                    <div class="film-holes-bottom">■   ■   ■   11A  ▷  ■   ■   ■   12  ■   ■   ■</div>
+                </div>
+                """, unsafe_allow_html=True)                    
