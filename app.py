@@ -346,11 +346,11 @@ st.markdown("""
         overflow-x: hidden !important;
     }
 
-    /* 左右固定膠捲裝飾 */
-    [data-testid="stAppViewContainer"]::before,
-    [data-testid="stAppViewContainer"]::after {
+    /* 左側固定裝飾：維持原本紅色劇院感，不再更動 */
+    [data-testid="stAppViewContainer"]::before {
         content: "";
         position: fixed;
+        left: 14px;
         top: 14px;
         bottom: 14px;
         width: 88px;
@@ -368,8 +368,31 @@ st.markdown("""
         pointer-events: none;
     }
 
-    [data-testid="stAppViewContainer"]::before { left: 14px; }
-    [data-testid="stAppViewContainer"]::after  { right: 14px; }
+    /* 右側固定裝飾：黑色電影膠捲樣式 */
+    [data-testid="stAppViewContainer"]::after {
+        content: "";
+        position: fixed;
+        right: 14px;
+        top: 14px;
+        bottom: 14px;
+        width: 92px;
+        z-index: 0;
+        border-radius: 16px;
+        border: 3px solid #050505;
+        box-shadow:
+            inset 0 0 28px rgba(0,0,0,0.95),
+            inset 0 0 0 2px rgba(255,255,255,0.05),
+            0 0 22px rgba(0,0,0,0.55);
+        background:
+            radial-gradient(ellipse at 13px 22px, #240303 0 7px, transparent 8px),
+            radial-gradient(ellipse at calc(100% - 13px) 22px, #240303 0 7px, transparent 8px),
+            repeating-linear-gradient(180deg, transparent 0px, transparent 54px, rgba(255,255,255,0.16) 55px, rgba(255,255,255,0.16) 58px, transparent 59px, transparent 72px),
+            linear-gradient(90deg, #020202 0%, #111111 18%, #2a2a2a 50%, #111111 82%, #020202 100%);
+        background-size: 100% 44px, 100% 44px, 100% 72px, 100% 100%;
+        background-repeat: repeat-y, repeat-y, repeat-y, no-repeat;
+        opacity: 0.98;
+        pointer-events: none;
+    }
 
     /* 主要內容區維持在裝飾之上 */
     .block-container {
