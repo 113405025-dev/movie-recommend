@@ -2,7 +2,7 @@ import streamlit as st
 from rapidfuzz import fuzz
 
 # =========================================================
-# 🎬 電影資料庫（超強情境優化版 2026）- 完全保留
+# 🎬 電影資料庫（超強情境優化版 2026）- 100% 完全保留
 # =========================================================
 def get_absolute_comprehensive_database_2026():
     database = [
@@ -127,7 +127,7 @@ def get_absolute_comprehensive_database_2026():
 
 
 # =========================================================
-# 🎯 智慧推薦引擎（完全結合 rapidfuzz 與大腦字典）- 完全保留
+# 🎯 智慧推薦引擎（完全結合 rapidfuzz 與大腦字典）- 100% 完全保留
 # =========================================================
 def recommend_movies(user_input, movies):
     user_input = user_input.lower().strip()
@@ -155,7 +155,7 @@ def recommend_movies(user_input, movies):
 
     results = []
 
-    # 计算得分
+    # 計算得分
     for movie in movies:
         score = 0
         movie_text = (movie["title"] + movie["genre"] + movie["story"]).lower()
@@ -205,80 +205,114 @@ def recommend_movies(user_input, movies):
 
 
 # =========================================================
-# 🎨 Streamlit 使用者介面（全新美化與視覺豐富化版）
+# 🎨 Streamlit 使用者介面（大進步：色彩修正與畫面豐富版）
 # =========================================================
 st.set_page_config(page_title="台北電影推薦", page_icon="🎬", layout="centered")
 
-# 透過進階 CSS 注入大幅豐富視覺外觀，完全移除原生單調的死白底色
+# 透過強大的 CSS 強制修正 Streamlit 深色模式文字看不見的問題，並建立高級卡片感
 st.markdown("""
     <style>
-    /* 全域改為具沉浸感的電影院暗黑風格 */
+    /* 修正全域深色背景，確保不會跟原生文字打架 */
     [data-testid="stAppViewContainer"] {
-        background-color: #0c1017;
+        background-color: #0d121a;
     }
     
-    /* 頂部發光文字大外框 */
+    /* 修正頂部區塊：大幅強化文字顏色對比度與發光質感 */
     .header-card {
-        background: linear-gradient(135deg, #1e2530, #111622);
-        padding: 30px;
-        border-radius: 20px;
+        background: linear-gradient(135deg, #161f2e, #0f1622);
+        padding: 35px 25px;
+        border-radius: 18px;
         border-bottom: 4px solid #ffcc00;
-        box-shadow: 0 10px 25px rgba(0,0,0,0.5);
-        margin-bottom: 25px;
+        box-shadow: 0 8px 32px rgba(0, 200, 255, 0.15);
+        margin-bottom: 30px;
+        text-align: center;
+    }
+    .header-card h1 {
+        color: #ffffff !important;
+        font-weight: 800 !important;
+        font-size: 2.2rem !important;
+        text-shadow: 0 0 10px rgba(255, 204, 0, 0.3);
+    }
+    .header-card p {
+        color: #e2e8f0 !important;
+        font-size: 1.05rem !important;
+        margin-top: 10px;
+    }
+
+    /* 強制修正 Streamlit 原生 Metric 的灰色死角，變為亮白色與鮮豔綠色 */
+    [data-testid="stMetricLabel"] > div {
+        color: #cbd5e1 !important;
+        font-size: 0.95rem !important;
+        font-weight: bold !important;
+    }
+    [data-testid="stMetricValue"] > div {
+        color: #ffffff !important;
+        font-weight: 800 !important;
     }
     
-    /* 精緻的獨立電影名片卡片 */
+    /* 提示字（Input Label）強制高亮 */
+    .input-label-text {
+        color: #ffffff !important;
+        font-size: 1.05rem !important;
+        font-weight: 600;
+        margin-bottom: 8px;
+    }
+
+    /* 豪華獨立電影名片卡片 */
     .custom-movie-card {
-        background: linear-gradient(145deg, #18202c, #10151f);
-        padding: 22px;
+        background: linear-gradient(145deg, #1a2333, #111824);
+        padding: 24px;
         border-radius: 14px;
-        border-left: 5px solid #ffcc00;
-        margin-top: 15px;
+        border-left: 6px solid #ffcc00;
+        margin-top: 20px;
         margin-bottom: 20px;
-        box-shadow: 0 8px 20px rgba(0,0,0,0.4);
+        box-shadow: 0 8px 24px rgba(0,0,0,0.5);
     }
     .custom-title {
         color: #ffffff !important;
-        font-size: 1.3rem !important;
-        font-weight: 700;
-        margin-bottom: 10px;
+        font-size: 1.35rem !important;
+        font-weight: 700 !important;
+        margin-bottom: 12px;
     }
     
-    /* 圓角膠囊式彩底標籤 */
+    /* 明亮圓角膠囊標籤 */
     .badge-yellow {
-        background-color: #ffcc00; color: #0c1017;
-        padding: 3px 10px; border-radius: 20px;
-        font-size: 0.8rem; font-weight: bold; display: inline-block; margin-right: 8px;
+        background-color: #ffcc00 !important; 
+        color: #0c1017 !important;
+        padding: 4px 12px; border-radius: 20px;
+        font-size: 0.85rem; font-weight: bold; display: inline-block; margin-right: 8px;
     }
-    .badge-gray {
-        background-color: #2d3748; color: #edf2f7;
-        padding: 3px 10px; border-radius: 20px;
-        font-size: 0.8rem; display: inline-block; margin-right: 8px;
+    .badge-blue {
+        background-color: #1e3a8a !important; 
+        color: #93c5fd !important;
+        padding: 4px 12px; border-radius: 20px;
+        font-size: 0.85rem; font-weight: bold; display: inline-block; margin-right: 8px;
+        border: 1px solid #3b82f6;
     }
     
-    /* 高質感內嵌劇情簡介框 */
+    /* 內嵌高質感劇情簡介框 */
     .custom-story-box {
-        background-color: #070a10;
+        background-color: #090d14;
         padding: 15px;
         border-radius: 8px;
-        color: #cbd5e0;
-        font-size: 0.95rem;
+        color: #e2e8f0;
+        font-size: 0.98rem;
         line-height: 1.6;
-        margin-top: 12px;
-        border-left: 2px solid #4a5568;
+        margin-top: 15px;
+        border-left: 3px solid #4b5563;
     }
     </style>
 """, unsafe_allow_html=True)
 
-# 1. 豐富視覺元件：利用帶陰影的區塊包裹標題與原本文字
+# 1. 頂部發光文字大外框（完全保留原生用詞）
 st.markdown("""
-    <div class="header-card" style="text-align: center;">
-        <h1 style="color: #ffcc00 !important; margin-bottom: 8px;">🎬 台北影城智慧電影推薦系統</h1>
-        <p style="color: #a0aec0 !important; margin-bottom: 0px;">本系統已將 <b>RapidFuzz 模糊匹配</b> 與 <b>雙向生活字典</b> 完美整合！</p>
+    <div class="header-card">
+        <h1>🎬 台北影城智慧電影推薦系統</h1>
+        <p>本系統已將 <b>RapidFuzz 模糊匹配</b> 與 <b>雙向生活字典</b> 完美整合！</p>
     </div>
 """, unsafe_allow_html=True)
 
-# 2. 豐富視覺元件：新增即時資訊數據牆（這不會影響原來的比對功能，但能讓畫面看起來極度豐富）
+# 2. 數據儀表板（修正前一版本對比度太低的問題，強制高亮顯示）
 movies_db = get_absolute_comprehensive_database_2026()
 col1, col2 = st.columns(2)
 with col1:
@@ -287,44 +321,63 @@ with col2:
     st.metric(label="⚙️ 核心匹配技術", value="RapidFuzz", delta="已啟用雙向字典防呆")
 
 st.write("")
+st.write("")
 
-# 原生用詞與欄位完全保留
+# 3. 豐富視覺元件：豐富中段畫面的快捷按鈕（這能讓原本空洞的地方填滿，視覺效果大提升！）
+st.markdown("<div class='input-label-text'>💡 試試熱門情境快捷點選：</div>", unsafe_allow_html=True)
+c1, c2, c3, c4 = st.columns(4)
+with c1:
+    if st.button("💔 分手想哭", use_container_width=True): st.session_state.my_input = "我分手了"
+with c2:
+    if st.button("🥳 心情大好", use_container_width=True): st.session_state.my_input = "今天心情不錯"
+with c3:
+    if st.button("🐱 療癒貓咪", use_container_width=True): st.session_state.my_input = "想看加非貓"
+with c4:
+    if st.button("🏎️ 刺激大場面", use_container_width=True): st.session_state.my_input = "大場面飆車"
+
+# 獲取快捷鍵帶入的預設值
+preset_value = st.session_state.get("my_input", "")
+
+# 4. 輸入欄位（將原生提示詞改用自訂高亮樣式渲染）
+st.markdown("<div class='input-label-text'>👉 輸入您的心情、生活狀態或想找的關鍵字：</div>", unsafe_allow_html=True)
 user_input = st.text_input(
-    "👉 輸入您的心情、生活狀態或想找的關鍵字：", 
-    placeholder="試試看輸入：我分手了、今天心情不錯、想看加非貓、大場面飆車"
+    "（隱藏標籤）", 
+    value=preset_value,
+    placeholder="試試看輸入：我分手了、今天心情不錯、想看加非貓、大場面飆車",
+    label_visibility="collapsed" # 隱藏原生暗淡的標籤，用我們自訂的高亮標籤替代
 )
 
 st.write("")
 
-# 原生用詞完全保留，並增加按鈕寬度使其更美觀大氣
+# 原生按鈕與推薦邏輯 100% 保留
 if st.button("🚀 啟動智慧推薦", type="primary", use_container_width=True):
     if user_input.strip() == "":
         st.warning("請先輸入一些關鍵字喔！")
     else:
-        # 3. 豐富視覺元件：增加處理中的動畫反饋效果（UX 動效）
+        # 增加流暢的動態加載反饋
         with st.spinner("🧠 系統正在匹配 RapidFuzz 算力與雙向字典標籤..."):
             recommended = recommend_movies(user_input, movies_db)
 
         if not recommended:
             st.error("😭 抱歉，目前沒有找到完全契合的電影，換個說法試試看？")
         else:
-            # 4. 豐富視覺元件：大成功時噴發歡慶氣球動畫
+            # 成功的氣球特效，大幅增加生動感
             st.balloons()
             
-            # 原生成功字樣完全保留
+            # 原生文字完全保留
             st.success(f"🧠 系統成功解析情境！幫您找到 {len(recommended)} 部適合的電影：")
             
-            # 5. 豐富視覺元件：將原本平淡的 expander 改為極光影院風格的高質感電影名片卡
+            # 5. 將原本黑嘛嘛的 expander 替換成這次大進步的「黑金霓虹高對比卡片」
             for m in recommended:
                 st.markdown(f"""
                 <div class="custom-movie-card">
                     <div class="custom-title">🍿 {m['title']}</div>
-                    <div style="margin-top: 4px; margin-bottom: 4px;">
-                        <span class="badge-gray">🎭 電影類型：{m['genre']}</span>
+                    <div style="margin-top: 5px; margin-bottom: 5px;">
+                        <span class="badge-blue">🎭 電影類型：{m['genre']}</span>
                         <span class="badge-yellow">📍 上映影城：{m['theater']}</span>
                     </div>
                     <div class="custom-story-box">
-                        📝 <b>劇情簡介：</b>{m['story']}
+                        <b>📝 劇情簡介：</b>{m['story']}
                     </div>
                 </div>
                 """, unsafe_allow_html=True)
