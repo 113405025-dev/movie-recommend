@@ -368,28 +368,67 @@ st.markdown("""
         pointer-events: none;
     }
 
-    /* 右側固定裝飾：黑色電影膠捲樣式 */
+    /* 右側固定裝飾：紅色電影膠捲樣式，參考圖片右側膠捲感 */
     [data-testid="stAppViewContainer"]::after {
         content: "";
         position: fixed;
         right: 14px;
         top: 14px;
         bottom: 14px;
-        width: 92px;
+        width: 96px;
         z-index: 0;
-        border-radius: 16px;
-        border: 3px solid #050505;
+        border-radius: 14px;
+        border: 4px solid #050505;
         box-shadow:
-            inset 0 0 28px rgba(0,0,0,0.95),
-            inset 0 0 0 2px rgba(255,255,255,0.05),
+            inset 0 0 24px rgba(0,0,0,0.80),
+            inset 0 0 0 2px rgba(255,255,255,0.04),
             0 0 22px rgba(0,0,0,0.55);
         background:
-            radial-gradient(ellipse at 13px 22px, #240303 0 7px, transparent 8px),
-            radial-gradient(ellipse at calc(100% - 13px) 22px, #240303 0 7px, transparent 8px),
-            repeating-linear-gradient(180deg, transparent 0px, transparent 54px, rgba(255,255,255,0.16) 55px, rgba(255,255,255,0.16) 58px, transparent 59px, transparent 72px),
-            linear-gradient(90deg, #020202 0%, #111111 18%, #2a2a2a 50%, #111111 82%, #020202 100%);
-        background-size: 100% 44px, 100% 44px, 100% 72px, 100% 100%;
-        background-repeat: repeat-y, repeat-y, repeat-y, no-repeat;
+            /* 左側小齒孔 */
+            radial-gradient(ellipse at 11px 18px, #a51a1a 0 5px, transparent 6px),
+            /* 右側小齒孔 */
+            radial-gradient(ellipse at calc(100% - 11px) 18px, #a51a1a 0 5px, transparent 6px),
+            /* 每格膠捲之間的黑色橫線 */
+            repeating-linear-gradient(
+                180deg,
+                transparent 0px,
+                transparent 154px,
+                #050505 155px,
+                #050505 162px,
+                transparent 163px,
+                transparent 230px
+            ),
+            /* 左右黑色齒孔帶 */
+            linear-gradient(
+                90deg,
+                #050505 0px,
+                #050505 16px,
+                transparent 16px,
+                transparent calc(100% - 16px),
+                #050505 calc(100% - 16px),
+                #050505 100%
+            ),
+            /* 紅色膠捲本體，做出一點布幕與膠片光澤 */
+            linear-gradient(
+                90deg,
+                #230202 0%,
+                #7f0b0b 20%,
+                #a11212 48%,
+                #6b0707 78%,
+                #230202 100%
+            );
+        background-size:
+            100% 28px,
+            100% 28px,
+            100% 230px,
+            100% 100%,
+            100% 100%;
+        background-repeat:
+            repeat-y,
+            repeat-y,
+            repeat-y,
+            no-repeat,
+            no-repeat;
         opacity: 0.98;
         pointer-events: none;
     }
