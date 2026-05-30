@@ -58,7 +58,6 @@ def get_absolute_comprehensive_database_2026():
             "genre": "動作 / 科幻 / 冒險",
             "style": ["熱血", "震撼", "大片", "刺激", "冒險", "期待", "同學", "死黨"],
             "story": "星際大戰系列睽違多年重返大銀幕之作！鋼鐵人導演執導。娛樂性與特效拉滿，最適合揪同學、死黨成群結隊去電影院狂歡發洩。",
-            "theater": "威秀影城、西門秀泰",
             "theater": "威秀影城、西門秀泰、國賓影城"
         },
         {
@@ -369,7 +368,7 @@ st.markdown("""
     .pulse-dot { width: 10px; height: 10px; background: #22c55e; border-radius: 50%; margin-right: 10px; box-shadow: 0 0 8px #22c55e; }
 
 
-    /* 🌟🌟🌟 🔥 中間主要搜尋畫面：極致奢華大改版 🔥 🌟🌟🌟 */
+    /* 🌟🌟🌟 🔥 中間主要搜尋畫面 🔥 🌟🌟🌟 */
     
     /* 1. 百老匯霓虹燈招牌看板外框 */
     .broadway-marquee-box {
@@ -425,7 +424,7 @@ st.markdown("""
         padding: 12px !important;
         transition: all 0.3s ease;
     }
-    /* 當輸入框被點擊時，觸發璀璨黃金焦點外暈 */
+    /* 當輸入框被點擊時，觸發焦點外暈 */
     div[data-testid="stTextInput"] input:focus {
         border-color: #FFE600 !important;
         box-shadow: 0 0 15px #FFE600 !important;
@@ -433,14 +432,14 @@ st.markdown("""
     /* 高對比淡黃色 Placeholder 提示字體 */
     div[data-testid="stTextInput"] input::placeholder { color: #FFE600 !important; opacity: 0.85 !important; font-weight: bold; }
 
-    /* 3. 百老匯奢華黃金按鈕樣式 */
+    /* 3. 百老匯按鈕樣式 */
     div.stButton > button {
         background: linear-gradient(180deg, #b91c1c 0%, #7f1d1d 100%) !important;
         color: #ffffff !important; 
         font-weight: 900 !important; 
         font-size: 1.25rem !important;
         border: 2px solid #f59e0b !important; 
-        border-radius: 30px !important; /* 圓角化更有尊榮門票感 */
+        border-radius: 30px !important;
         padding: 10px 24px !important;
         box-shadow: 0 4px 15px rgba(185, 28, 28, 0.4) !important;
         width: 100%; 
@@ -455,13 +454,13 @@ st.markdown("""
         color: #FFE600 !important;
     }
 
-    /* 4. 皇家包廂式結果摺疊面板 (Royal Box Expanders) */
+    /* 4. 結果摺疊面板 */
     div[data-testid="stExpander"] {
         background-color: #0f1422 !important; 
         border: 2px solid #f59e0b !important; 
         border-radius: 12px !important;
         box-shadow: 0 6px 20px rgba(0,0,0,0.7) !important;
-        border-left: 8px solid #b91c1c !important; /* 左側新增精緻皇家絲絨紅飾條 */
+        border-left: 8px solid #b91c1c !important;
     }
     /* 摺疊面板標題字體：加大、純黃金高對比色 */
     div[data-testid="stExpander"] summary p {
@@ -534,26 +533,26 @@ with st.sidebar:
 
 
 # =========================================================
-# 🎫 5. 主頁面核心呈現（奢華百老匯視覺大改版，推薦程式碼未更動）
+# 🎫 5. 主頁面核心呈現（修改標題與一般化提示用語）
 # =========================================================
-# 霓虹看板大標題
+# 看板大標題（已修正為您要求的名稱）
 st.markdown("""
     <div class="broadway-marquee-box">
-        <h1 class="marquee-main-title">🎬 台北影城皇家智慧劃位系統</h1>
+        <h1 class="marquee-main-title">🎬 台北影城智慧電影推薦系統</h1>
         <div class="marquee-sub-title">🎟️ 2026年5月完全體版：生活情境矩陣核心 × 五大實體院線熱映片單</div>
     </div>
 """, unsafe_allow_html=True)
 
-# 聚光燈輸入框
+# 輸入框（已修正為一般平常的說法）
 user_input = st.text_input(
-    "🛎️ 尊榮售票口：請輸入您今天的狀態、心情或想找的電影？", 
+    "🛎️ 請輸入您目前的狀態、心情或想尋找的電影關鍵字：", 
     placeholder="在此輸入情境（例如：期末考爆掉、情侶約會放鬆、我想看李滄東...）"
 )
 
 st.markdown("<div style='height: 15px;'></div>", unsafe_allow_html=True)
 
-# 金黃邊框百老匯按鈕
-if st.button("🎟️ 啟動皇家大數據劃位推薦"):
+# 按鈕文字（已修正）
+if st.button("🎟️ 開始電影推薦"):
     if user_input.strip() == "":
         st.warning("請先輸入您的情境或電影關鍵字後再點擊啟動喔！")
     else:
@@ -563,12 +562,11 @@ if st.button("🎟️ 啟動皇家大數據劃位推薦"):
         recommended, is_matched = recommend_movies_ultimate(user_input, movie_db)
 
         if not is_matched or not recommended:
-            st.error("😭 報歉，皇家大數據目前沒找到完全對應的電影，要不要換種心情說法試試看？")
+            st.error("😭 抱歉，目前沒找到符合您當前情境的電影，要不要換種心情或關鍵字試試看？")
         else:
-            st.markdown(f"<h3 style='color: #22c55e; font-weight: bold; text-shadow: 1px 1px 2px #000;'>🧠 系統成功解密情境！為您引路以下 {len(recommended)} 部極致契合片單：</h3>", unsafe_allow_html=True)
+            st.markdown(f"<h3 style='color: #22c55e; font-weight: bold; text-shadow: 1px 1px 2px #000;'>🧠 系統成功對應情境！為您推薦以下 {len(recommended)} 部適合的片單：</h3>", unsafe_allow_html=True)
             
             for m in recommended:
-                # 皇家包廂式結果面板，文字加粗加大、高對比純白，保證清晰無比
                 with st.expander(f"🍿 {m['title']}", expanded=True):
                     st.markdown(f"""
                         <div class="movie-detail-text">
