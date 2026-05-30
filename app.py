@@ -58,6 +58,7 @@ def get_absolute_comprehensive_database_2026():
             "genre": "動作 / 科幻 / 冒險",
             "style": ["熱血", "震撼", "大片", "刺激", "冒險", "期待", "同學", "死黨"],
             "story": "星際大戰系列睽違多年重返大銀幕之作！鋼鐵人導演執導。娛樂性與特效拉滿，最適合揪同學、死黨成群結隊去電影院狂歡發洩。",
+            "theater": "威秀影城、西門秀泰",
             "theater": "威秀影城、西門秀泰、國賓影城"
         },
         {
@@ -168,7 +169,7 @@ def get_absolute_comprehensive_database_2026():
             "title": "穿著Prada的惡魔2 (The Devil Wears Prada 2)",
             "genre": "劇情 / 喜劇 / 時尚",
             "style": ["放鬆", "職場", "喜劇", "幽默", "約會", "情侶"],
-            "story": "經典時尚神作正宗續集。犀利幽默的對白再現職場生存學，劇情有笑有淚. 非常適合職場受挫、被主管老闆罵的人來看片紓壓，也很適合情侶約會。",
+            "story": "經典時尚神作正宗續集。犀利幽默的對白再現職場生存學，劇情有笑有淚。非常適合職場受挫、被主管老闆罵的人來看片紓壓，也很適合情侶約會。",
             "theater": "威秀影城、誠品電影院、微風國賓"
         },
 
@@ -236,7 +237,7 @@ def get_absolute_comprehensive_database_2026():
 
 
 # =========================================================
-# 🎯 2. 智慧選片推薦引擎 (100% 完整保留您的加權算法)
+# 🎯 2. 智慧選片推薦引擎 (完全保留，不更動任何推薦影片程式碼)
 # =========================================================
 def recommend_movies_ultimate(user_input, movies):
     if not movies: return [], False
@@ -328,124 +329,164 @@ def recommend_movies_ultimate(user_input, movies):
 
 
 # =========================================================
-# 🎨 3. UI 裝飾：文字清晰度特化與雙排對稱圓球
+# 🎨 3. UI 裝飾：保持完美側邊欄 + 升級華麗中間搜尋主畫面
 # =========================================================
 st.set_page_config(page_title="大台北電影智慧推薦", page_icon="🎬", layout="centered")
 
 st.markdown("""
     <style>
-    /* 全域深色底 */
+    /* 全域劇院黑底 */
     [data-testid="stAppViewContainer"] {
-        background-color: #0c111d !important;
+        background-color: #0b0f19 !important;
     }
 
-    /* 🧱 側邊欄：雙排黃金齒孔對稱設計 */
+    /* 🧱 🧱 🧱 完美保留：側邊欄雙排對稱黃金圓球 🧱 🧱 🧱 */
     [data-testid="stSidebar"] {
-        background: linear-gradient(180deg, #4c0519 0%, #200107 70%, #0c111d 100%) !important;
+        background: linear-gradient(180deg, #4c0519 0%, #1a0106 70%, #0b0f19 100%) !important;
         position: relative !important;
-        box-shadow: 8px 0 30px rgba(0,0,0,0.8) !important;
+        box-shadow: 8px 0 30px rgba(0,0,0,0.9) !important;
     }
-    /* 右側黃金圓球齒孔 */
+    /* 右排圓球 */
     [data-testid="stSidebar"]::after {
         content: ""; position: absolute; right: 0; top: 0; bottom: 0; width: 14px;
         background-image: radial-gradient(circle, #f59e0b 35%, transparent 40%);
         background-size: 14px 28px; background-repeat: repeat-y; border-left: 1px solid rgba(245, 158, 11, 0.4);
     }
-    /* 左側對稱黃金圓球齒孔 (新增項目) */
+    /* 左排對稱圓球 */
     [data-testid="stSidebar"]::before {
         content: ""; position: absolute; left: 0; top: 0; bottom: 0; width: 14px;
         background-image: radial-gradient(circle, #f59e0b 35%, transparent 40%);
         background-size: 14px 28px; background-repeat: repeat-y; border-right: 1px solid rgba(245, 158, 11, 0.4);
         z-index: 10;
     }
-
-    /* 側欄區塊內縮避免壓到左邊圓球 */
     .sidebar-section {
-        background: rgba(0, 0, 0, 0.6) !important;
-        border: 1px solid #f59e0b !important;
-        border-radius: 10px; padding: 16px; margin: 0 16px 22px 16px;
-        box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+        background: rgba(0, 0, 0, 0.6) !important; border: 1px solid #f59e0b !important;
+        border-radius: 10px; padding: 16px; margin: 0 16px 22px 16px; box-shadow: 0 4px 10px rgba(0,0,0,0.5);
     }
-    .sidebar-title { 
-        color: #ffffff !important; font-size: 1.15rem; font-weight: 900; margin-bottom: 12px; 
-        border-bottom: 1px dashed #f59e0b; padding-bottom: 6px;
-        text-shadow: 0 0 5px #f59e0b;
-    }
+    .sidebar-title { color: #ffffff !important; font-size: 1.15rem; font-weight: 900; margin-bottom: 12px; border-bottom: 1px dashed #f59e0b; padding-bottom: 6px; text-shadow: 0 0 5px #f59e0b; }
     .sidebar-text { color: #ffffff !important; font-size: 0.95rem; line-height: 1.6; }
-
-    /* 🟢 狀態燈 */
     .pulse-container { display: flex; align-items: center; margin-bottom: 8px; }
-    .pulse-dot {
-        width: 10px; height: 10px; background: #22c55e; border-radius: 50%;
-        margin-right: 10px; box-shadow: 0 0 8px #22c55e;
-    }
+    .pulse-dot { width: 10px; height: 10px; background: #22c55e; border-radius: 50%; margin-right: 10px; box-shadow: 0 0 8px #22c55e; }
 
-    /* 🚨🚨🚨 【核心修正】主要介面文字清晰度全面特化 🚨🚨🚨 */
-    
-    /* 1. 主頁面副標題與說明文字 */
-    .main-description {
-        color: #ffffff !important; font-size: 1.15rem !important; font-weight: bold !important;
-        margin-bottom: 25px; text-shadow: 1px 1px 4px rgba(0,0,0,0.9);
-    }
 
-    /* 2. 輸入框上方的提示標題 */
-    div[data-testid="stTextInput"] label p {
-        color: #ffffff !important; font-size: 1.35rem !important; font-weight: 900 !important;
-        text-shadow: 2px 2px 5px rgba(0,0,0,1) !important;
-        padding-bottom: 5px;
+    /* 🌟🌟🌟 🔥 中間主要搜尋畫面：極致奢華大改版 🔥 🌟🌟🌟 */
+    
+    /* 1. 百老匯霓虹燈招牌看板外框 */
+    .broadway-marquee-box {
+        background: radial-gradient(circle at center, #1e1115 0%, #0d0608 100%) !important;
+        border: 4px double #f59e0b !important;
+        border-radius: 16px;
+        padding: 30px 20px;
+        text-align: center;
+        box-shadow: 0 0 25px rgba(245, 158, 11, 0.35), inset 0 0 15px rgba(0,0,0,0.9);
+        margin-bottom: 35px;
     }
     
-    /* 3. 輸入框內輸入的字體 */
-    div[data-testid="stTextInput"] input {
-        background-color: #1e293b !important;
-        color: #ffffff !important; 
-        font-size: 1.15rem !important; font-weight: bold !important;
-        border: 2px solid #f59e0b !important; border-radius: 8px !important;
+    /* 招牌主標題字體：帶有極致復古金色微發光陰影 */
+    .marquee-main-title {
+        color: #ffffff !important;
+        font-size: 2.3rem !important;
+        font-weight: 900 !important;
+        letter-spacing: 2px;
+        margin: 0 0 10px 0 !important;
+        text-shadow: 0 0 4px #991b1b, 0 0 10px #f59e0b, 0 0 20px #FFE600 !important;
     }
     
-    /* 4. Placeholder 提示字體：改為超高對比發光淡黃色 */
-    div[data-testid="stTextInput"] input::placeholder { color: #FFE600 !important; opacity: 1.0 !important; font-weight: bold !important; }
-    div[data-testid="stTextInput"] input::-webkit-input-placeholder { color: #FFE600 !important; opacity: 1.0 !important; font-weight: bold !important; }
-
-    /* 5. 結果展開摺疊面板 (Expander) 內部的文字完全清晰化 */
-    div[data-testid="stExpander"] {
-        background-color: #111827 !important; 
-        border: 2px solid #f59e0b !important; 
-        border-radius: 10px !important;
-        box-shadow: 0 4px 15px rgba(0,0,0,0.6) !important;
-    }
-    
-    /* 摺疊面板標題 */
-    div[data-testid="stExpander"] summary p {
-        color: #FFE600 !important; font-weight: 900 !important; font-size: 1.25rem !important;
+    /* 副標題說明字體 */
+    .marquee-sub-title {
+        color: #e5e7eb !important;
+        font-size: 1.1rem !important;
+        font-weight: bold !important;
         text-shadow: 1px 1px 3px rgba(0,0,0,0.8);
     }
-    
-    /* 面板內部所有標籤與內文強制轉為純白，徹底告別隱形灰色 */
+
+    /* 2. 舞台焦點輸入框 (Spotlight Input Box) */
+    div[data-testid="stTextInput"] {
+        background: rgba(17, 24, 39, 0.8) !important;
+        padding: 20px;
+        border-radius: 12px;
+        border: 1px dashed rgba(245, 158, 11, 0.5);
+        box-shadow: 0 8px 20px rgba(0,0,0,0.5);
+    }
+    div[data-testid="stTextInput"] label p {
+        color: #FFE600 !important; 
+        font-size: 1.4rem !important; 
+        font-weight: 900 !important;
+        text-shadow: 2px 2px 4px rgba(0,0,0,0.9) !important;
+        letter-spacing: 1px;
+    }
+    div[data-testid="stTextInput"] input {
+        background-color: #111827 !important;
+        color: #ffffff !important; 
+        font-size: 1.2rem !important; 
+        font-weight: bold !important;
+        border: 2px solid #f59e0b !important; 
+        border-radius: 8px !important;
+        padding: 12px !important;
+        transition: all 0.3s ease;
+    }
+    /* 當輸入框被點擊時，觸發璀璨黃金焦點外暈 */
+    div[data-testid="stTextInput"] input:focus {
+        border-color: #FFE600 !important;
+        box-shadow: 0 0 15px #FFE600 !important;
+    }
+    /* 高對比淡黃色 Placeholder 提示字體 */
+    div[data-testid="stTextInput"] input::placeholder { color: #FFE600 !important; opacity: 0.85 !important; font-weight: bold; }
+
+    /* 3. 百老匯奢華黃金按鈕樣式 */
+    div.stButton > button {
+        background: linear-gradient(180deg, #b91c1c 0%, #7f1d1d 100%) !important;
+        color: #ffffff !important; 
+        font-weight: 900 !important; 
+        font-size: 1.25rem !important;
+        border: 2px solid #f59e0b !important; 
+        border-radius: 30px !important; /* 圓角化更有尊榮門票感 */
+        padding: 10px 24px !important;
+        box-shadow: 0 4px 15px rgba(185, 28, 28, 0.4) !important;
+        width: 100%; 
+        letter-spacing: 2px;
+        transition: all 0.25s ease-in-out;
+    }
+    /* 按鈕滑鼠懸浮特效 */
+    div.stButton > button:hover {
+        transform: translateY(-3px) scale(1.01);
+        background: linear-gradient(180deg, #dc2626 0%, #991b1b 100%) !important;
+        box-shadow: 0 8px 25px #FFE600 !important;
+        color: #FFE600 !important;
+    }
+
+    /* 4. 皇家包廂式結果摺疊面板 (Royal Box Expanders) */
+    div[data-testid="stExpander"] {
+        background-color: #0f1422 !important; 
+        border: 2px solid #f59e0b !important; 
+        border-radius: 12px !important;
+        box-shadow: 0 6px 20px rgba(0,0,0,0.7) !important;
+        border-left: 8px solid #b91c1c !important; /* 左側新增精緻皇家絲絨紅飾條 */
+    }
+    /* 摺疊面板標題字體：加大、純黃金高對比色 */
+    div[data-testid="stExpander"] summary p {
+        color: #FFE600 !important; 
+        font-weight: 900 !important; 
+        font-size: 1.35rem !important;
+        text-shadow: 2px 2px 4px rgba(0,0,0,0.9);
+    }
+    /* 面板內部詳細內文：全面轉為極致高對比亮白與金黃 */
     .movie-detail-text {
-        color: #ffffff !important; font-size: 1.05rem !important; line-height: 1.7 !important;
+        color: #ffffff !important; 
+        font-size: 1.1rem !important; 
+        line-height: 1.8 !important;
+        text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
     }
     .movie-detail-tag {
-        color: #f59e0b !important; font-weight: bold !important;
-    }
-    
-    /* 按鈕樣式 */
-    div.stButton > button {
-        background: linear-gradient(180deg, #dc2626 0%, #991b1b 100%) !important;
-        color: #ffffff !important; font-weight: 900 !important; font-size: 1.1rem !important;
-        border: 1px solid #f59e0b !important; border-radius: 8px !important;
-        box-shadow: 0 4px 10px rgba(220, 38, 38, 0.3) !important;
-        width: 100%; transition: all 0.2s;
-    }
-    div.stButton > button:hover {
-        transform: translateY(-2px); box-shadow: 0 6px 15px #f59e0b !important;
+        color: #f59e0b !important; 
+        font-weight: 900 !important;
     }
     </style>
 """, unsafe_allow_html=True)
 
 
 # =========================================================
-# 🗂️ 4. 側邊功能導覽列
+# 🗂️ 4. 側邊功能導覽列 (100% 保持您滿意的外觀與功能)
 # =========================================================
 with st.sidebar:
     st.markdown("<div style='height: 25px;'></div>", unsafe_allow_html=True)
@@ -493,38 +534,46 @@ with st.sidebar:
 
 
 # =========================================================
-# 🎫 5. 主頁面核心呈現（文字高對比處理）
+# 🎫 5. 主頁面核心呈現（奢華百老匯視覺大改版，推薦程式碼未更動）
 # =========================================================
-st.markdown("<h1 style='color: #ffffff; text-shadow: 2px 2px 4px rgba(0,0,0,0.8); font-weight: 900;'>🎬 台北影城智慧電影推薦系統</h1>", unsafe_allow_html=True)
-st.markdown("<p class='main-description'>⚡ 2026年5月完全體版：生活情境矩陣核心 × 五大實體院線熱映/影展片單完美整合</p>", unsafe_allow_html=True)
+# 霓虹看板大標題
+st.markdown("""
+    <div class="broadway-marquee-box">
+        <h1 class="marquee-main-title">🎬 台北影城皇家智慧劃位系統</h1>
+        <div class="marquee-sub-title">🎟️ 2026年5月完全體版：生活情境矩陣核心 × 五大實體院線熱映片單</div>
+    </div>
+""", unsafe_allow_html=True)
 
-# 使用特化標籤與高對比 Placeholder
+# 聚光燈輸入框
 user_input = st.text_input(
-    "👉 售票口：請輸入您今天的狀態、心情或想找的關鍵字？", 
-    placeholder="在此輸入情境（例如：我分手了、今天心情不錯、想看大場面飆車、李滄東...）"
+    "🛎️ 尊榮售票口：請輸入您今天的狀態、心情或想找的電影？", 
+    placeholder="在此輸入情境（例如：期末考爆掉、情侶約會放鬆、我想看李滄東...）"
 )
 
-st.markdown("<div style='height: 10px;'></div>", unsafe_allow_html=True)
+st.markdown("<div style='height: 15px;'></div>", unsafe_allow_html=True)
 
-if st.button("🚀 啟動智慧劃位推薦"):
+# 金黃邊框百老匯按鈕
+if st.button("🎟️ 啟動皇家大數據劃位推薦"):
     if user_input.strip() == "":
-        st.warning("請輸入您的情境或電影關鍵字後再點擊啟動喔！")
+        st.warning("請先輸入您的情境或電影關鍵字後再點擊啟動喔！")
     else:
         movie_db = get_absolute_comprehensive_database_2026()
+        
+        # 這是您的推薦演算法核心，100% 完整保留，完全沒有更動
         recommended, is_matched = recommend_movies_ultimate(user_input, movie_db)
 
         if not is_matched or not recommended:
-            st.error("😭 報歉，大數據目前沒找到完全對應的電影，要不要換種心情說法試試看？")
+            st.error("😭 報歉，皇家大數據目前沒找到完全對應的電影，要不要換種心情說法試試看？")
         else:
-            st.markdown(f"<h3 style='color: #22c55e; font-weight: bold;'>🧠 系統成功解析情境！幫您找到 {len(recommended)} 部最適合的當期台北片單：</h3>", unsafe_allow_html=True)
+            st.markdown(f"<h3 style='color: #22c55e; font-weight: bold; text-shadow: 1px 1px 2px #000;'>🧠 系統成功解密情境！為您引路以下 {len(recommended)} 部極致契合片單：</h3>", unsafe_allow_html=True)
             
             for m in recommended:
-                # 這裡的 Expander 面板已經透過 CSS 重新定義，字體絕對清晰白亮
+                # 皇家包廂式結果面板，文字加粗加大、高對比純白，保證清晰無比
                 with st.expander(f"🍿 {m['title']}", expanded=True):
                     st.markdown(f"""
                         <div class="movie-detail-text">
                             <span class="movie-detail-tag">🎭 電影類型：</span>{m['genre']}<br>
                             <span class="movie-detail-tag">📍 上映影城：</span>{m['theater']}<br>
-                            <span class="movie-detail-tag">📝 劇情簡介與推薦理由：</span>{m['story']}
+                            <span class="movie-detail-tag">📝 劇情簡介與情境推薦：</span>{m['story']}
                         </div>
                     """, unsafe_allow_html=True)
