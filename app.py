@@ -368,69 +368,22 @@ st.markdown("""
         pointer-events: none;
     }
 
-    /* 右側固定裝飾：紅色電影膠捲樣式，參考圖片右側膠捲感 */
+    /* 右側固定裝飾：改成像圖片一樣的彎曲黑色電影膠捲 */
     [data-testid="stAppViewContainer"]::after {
         content: "";
         position: fixed;
-        right: 14px;
-        top: 14px;
-        bottom: 14px;
-        width: 96px;
+        right: 0;
+        top: 0;
+        bottom: 0;
+        width: 230px;
         z-index: 0;
-        border-radius: 14px;
-        border: 4px solid #050505;
-        box-shadow:
-            inset 0 0 24px rgba(0,0,0,0.80),
-            inset 0 0 0 2px rgba(255,255,255,0.04),
-            0 0 22px rgba(0,0,0,0.55);
-        background:
-            /* 左側小齒孔 */
-            radial-gradient(ellipse at 11px 18px, #a51a1a 0 5px, transparent 6px),
-            /* 右側小齒孔 */
-            radial-gradient(ellipse at calc(100% - 11px) 18px, #a51a1a 0 5px, transparent 6px),
-            /* 每格膠捲之間的黑色橫線 */
-            repeating-linear-gradient(
-                180deg,
-                transparent 0px,
-                transparent 154px,
-                #050505 155px,
-                #050505 162px,
-                transparent 163px,
-                transparent 230px
-            ),
-            /* 左右黑色齒孔帶 */
-            linear-gradient(
-                90deg,
-                #050505 0px,
-                #050505 16px,
-                transparent 16px,
-                transparent calc(100% - 16px),
-                #050505 calc(100% - 16px),
-                #050505 100%
-            ),
-            /* 紅色膠捲本體，做出一點布幕與膠片光澤 */
-            linear-gradient(
-                90deg,
-                #230202 0%,
-                #7f0b0b 20%,
-                #a11212 48%,
-                #6b0707 78%,
-                #230202 100%
-            );
-        background-size:
-            100% 28px,
-            100% 28px,
-            100% 230px,
-            100% 100%,
-            100% 100%;
-        background-repeat:
-            repeat-y,
-            repeat-y,
-            repeat-y,
-            no-repeat,
-            no-repeat;
-        opacity: 0.98;
         pointer-events: none;
+        opacity: 0.96;
+        background-image: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20210%201000%22%20preserveAspectRatio%3D%22none%22%3E%0A%20%20%3Cdefs%3E%0A%20%20%20%20%3Cfilter%20id%3D%22shadow%22%20x%3D%22-30%25%22%20y%3D%22-10%25%22%20width%3D%22160%25%22%20height%3D%22120%25%22%3E%0A%20%20%20%20%20%20%3CfeDropShadow%20dx%3D%220%22%20dy%3D%220%22%20stdDeviation%3D%223%22%20flood-color%3D%22%23000000%22%20flood-opacity%3D%220.65%22%2F%3E%0A%20%20%20%20%3C%2Ffilter%3E%0A%20%20%20%20%3ClinearGradient%20id%3D%22filmInside%22%20x1%3D%220%22%20y1%3D%220%22%20x2%3D%221%22%20y2%3D%220%22%3E%0A%20%20%20%20%20%20%3Cstop%20offset%3D%220%22%20stop-color%3D%22%232b0208%22%20stop-opacity%3D%220.88%22%2F%3E%0A%20%20%20%20%20%20%3Cstop%20offset%3D%220.50%22%20stop-color%3D%22%237f0b0b%22%20stop-opacity%3D%220.55%22%2F%3E%0A%20%20%20%20%20%20%3Cstop%20offset%3D%221%22%20stop-color%3D%22%23120103%22%20stop-opacity%3D%220.90%22%2F%3E%0A%20%20%20%20%3C%2FlinearGradient%3E%0A%20%20%3C%2Fdefs%3E%0A%0A%20%20%3C%21--%20%E9%80%8F%E6%98%8E%E8%83%8C%E6%99%AF%E4%B8%8A%E7%9A%84%E5%BD%8E%E6%9B%B2%E8%86%A0%E6%8D%B2%E6%9C%AC%E9%AB%94%20--%3E%0A%20%20%3Cpath%20d%3D%22M178%20-70%20C54%2090%20238%20180%20124%20318%20C23%20440%20224%20548%20166%20700%20C116%20830%20214%20930%20136%201080%22%0A%20%20%20%20%20%20%20%20fill%3D%22none%22%20stroke%3D%22%23050505%22%20stroke-width%3D%2282%22%20stroke-linecap%3D%22round%22%20filter%3D%22url%28%23shadow%29%22%2F%3E%0A%20%20%3Cpath%20d%3D%22M178%20-70%20C54%2090%20238%20180%20124%20318%20C23%20440%20224%20548%20166%20700%20C116%20830%20214%20930%20136%201080%22%0A%20%20%20%20%20%20%20%20fill%3D%22none%22%20stroke%3D%22url%28%23filmInside%29%22%20stroke-width%3D%2248%22%20stroke-linecap%3D%22round%22%2F%3E%0A%0A%20%20%3C%21--%20%E5%85%A9%E5%81%B4%E8%86%A0%E6%8D%B2%E9%82%8A%E7%B7%9A%20--%3E%0A%20%20%3Cpath%20d%3D%22M148%20-70%20C24%2090%20208%20180%2094%20318%20C-7%20440%20194%20548%20136%20700%20C86%20830%20184%20930%20106%201080%22%0A%20%20%20%20%20%20%20%20fill%3D%22none%22%20stroke%3D%22%23050505%22%20stroke-width%3D%2211%22%20stroke-linecap%3D%22round%22%2F%3E%0A%20%20%3Cpath%20d%3D%22M208%20-70%20C84%2090%20268%20180%20154%20318%20C53%20440%20254%20548%20196%20700%20C146%20830%20244%20930%20166%201080%22%0A%20%20%20%20%20%20%20%20fill%3D%22none%22%20stroke%3D%22%23050505%22%20stroke-width%3D%2211%22%20stroke-linecap%3D%22round%22%2F%3E%0A%0A%20%20%3C%21--%20%E8%86%A0%E6%8D%B2%E9%BD%92%E5%AD%94%EF%BC%9A%E7%94%A8%E7%9F%AD%E8%99%9B%E7%B7%9A%E5%81%9A%E5%87%BA%E9%80%A3%E7%BA%8C%E6%B4%9E%E6%B4%9E%E6%84%9F%20--%3E%0A%20%20%3Cpath%20d%3D%22M148%20-70%20C24%2090%20208%20180%2094%20318%20C-7%20440%20194%20548%20136%20700%20C86%20830%20184%20930%20106%201080%22%0A%20%20%20%20%20%20%20%20fill%3D%22none%22%20stroke%3D%22%23f8fafc%22%20stroke-width%3D%226%22%20stroke-linecap%3D%22round%22%20stroke-dasharray%3D%222%2016%22%20opacity%3D%220.92%22%2F%3E%0A%20%20%3Cpath%20d%3D%22M208%20-70%20C84%2090%20268%20180%20154%20318%20C53%20440%20254%20548%20196%20700%20C146%20830%20244%20930%20166%201080%22%0A%20%20%20%20%20%20%20%20fill%3D%22none%22%20stroke%3D%22%23f8fafc%22%20stroke-width%3D%226%22%20stroke-linecap%3D%22round%22%20stroke-dasharray%3D%222%2016%22%20opacity%3D%220.92%22%2F%3E%0A%0A%20%20%3C%21--%20%E4%B8%AD%E9%96%93%E5%88%86%E6%A0%BC%E7%B7%9A%EF%BC%8C%E8%AE%93%E5%AE%83%E6%9B%B4%E5%83%8F%E8%86%A0%E6%8D%B2%E4%B8%80%E6%A0%BC%E4%B8%80%E6%A0%BC%20--%3E%0A%20%20%3Cg%20stroke%3D%22%23050505%22%20stroke-width%3D%228%22%20stroke-linecap%3D%22round%22%20opacity%3D%220.95%22%3E%0A%20%20%20%20%3Cline%20x1%3D%22137%22%20y1%3D%2258%22%20%20x2%3D%22197%22%20y2%3D%2278%22%2F%3E%0A%20%20%20%20%3Cline%20x1%3D%22101%22%20y1%3D%22168%22%20x2%3D%22165%22%20y2%3D%22196%22%2F%3E%0A%20%20%20%20%3Cline%20x1%3D%2288%22%20%20y1%3D%22288%22%20x2%3D%22149%22%20y2%3D%22325%22%2F%3E%0A%20%20%20%20%3Cline%20x1%3D%2275%22%20%20y1%3D%22414%22%20x2%3D%22136%22%20y2%3D%22454%22%2F%3E%0A%20%20%20%20%3Cline%20x1%3D%22116%22%20y1%3D%22542%22%20x2%3D%22180%22%20y2%3D%22570%22%2F%3E%0A%20%20%20%20%3Cline%20x1%3D%22137%22%20y1%3D%22664%22%20x2%3D%22199%22%20y2%3D%22687%22%2F%3E%0A%20%20%20%20%3Cline%20x1%3D%22121%22%20y1%3D%22792%22%20x2%3D%22181%22%20y2%3D%22818%22%2F%3E%0A%20%20%20%20%3Cline%20x1%3D%22134%22%20y1%3D%22918%22%20x2%3D%22191%22%20y2%3D%22940%22%2F%3E%0A%20%20%3C%2Fg%3E%0A%3C%2Fsvg%3E");
+        background-repeat: no-repeat;
+        background-position: right center;
+        background-size: 230px 100vh;
+        filter: drop-shadow(0 0 12px rgba(0,0,0,0.80));
     }
 
     /* 主要內容區維持在裝飾之上 */
@@ -822,10 +775,15 @@ st.markdown("""
        7. 手機 / 小螢幕：避免左右膠捲太擠
     ========================================================= */
     @media (max-width: 1100px) {
-        [data-testid="stAppViewContainer"]::before,
-        [data-testid="stAppViewContainer"]::after {
+        [data-testid="stAppViewContainer"]::before {
             width: 56px;
             opacity: 0.55;
+        }
+
+        [data-testid="stAppViewContainer"]::after {
+            width: 160px;
+            background-size: 160px 100vh;
+            opacity: 0.70;
         }
     }
 
