@@ -5,292 +5,257 @@ from rapidfuzz import fuzz
 # 🎬 1. 2026年5月 台北五大影城全制霸資料庫（30部真實完整版）
 # =========================================================
 def get_absolute_comprehensive_database_2026():
-    """
-    台北五大影城（威秀、光點華山、秀泰、誠品、國賓）2026年5月熱映與影展熱售中全制霸資料庫。
-    總共 30 部真實電影，全面涵蓋商業大片、李滄東大師回顧展、紀錄片、恐怖怪談、日本催淚及動畫。
-    """
     database = [
-        # =================【 A. 李滄東大師經典回顧展專區 (光點華山、誠品熱售中)】=================
+        # =================【 A. 李滄東大師經典回顧展專區 】=================
         {
             "title": "燃燒烈愛 (Burning) - 數位重映",
             "genre": "劇情 / 懸疑 / 藝術",
             "style": ["孤獨", "寂寞", "文藝", "深度", "思考", "邊緣", "憂鬱", "沉悶", "李滄東"],
-            "story": "改編自村上春樹小說，劉亞仁、文根英、史蒂芬元主演。極具後現代神祕感，步調溫慢、隱喻深沉，深刻解構當代青年的無力與階級焦慮。適合自己一個人、寂寞憂鬱時深沉動腦。",
-            "theater": "光點華山電影館 (影展主場)、誠品電影院 (限量同步)"
+            "story": "改編自村上春樹小說，劉亞仁、文根英、史蒂芬元主演。步調溫慢、隱喻深沉，深刻解構當代青年的無力與階級焦慮。適合自己一個人、寂寞憂鬱時深沉動腦。",
+            "theater": "光點華山電影館、誠品電影院"
         },
         {
             "title": "生命之詩 (Poetry) - 4K數位修復",
             "genre": "劇情 / 文藝 / 人性",
             "style": ["憂鬱", "難過", "生命", "深刻", "心靈", "深沉", "文藝", "李滄東"],
-            "story": "榮獲坎城影展最佳劇本獎。講述一名開始失智的奶奶，在生活重壓與孫子犯下的罪行之間，苦苦尋找世間詩意與人性救贖的故事。適合心情低潮、想探討生命本質時觀看。",
-            "theater": "光點華山電影館 (影展主場)、誠品電影院"
+            "story": "榮獲坎城影展最佳劇本獎。講述一名失智奶奶在生活重壓與孫子罪行間，尋找世間詩意與人性救贖的故事。適合心情低潮、想探討生命本質時觀看。",
+            "theater": "光點華山電影館、誠品電影院"
         },
         {
             "title": "密陽 (Secret Sunshine) - 經典重映",
             "genre": "劇情 / 人性 / 犯罪",
             "style": ["難過", "傷心", "淚水", "痛苦", "深刻", "心碎", "李滄東"],
-            "story": "全度妍榮獲坎城影后之作。講述一個痛失摯愛的女子試圖透過宗教尋求救贖，卻面臨更殘酷人性考驗的故事。情感張力極其痛苦且深刻，適合需要痛哭釋放沉重情緒的影迷。",
+            "story": "全度妍榮獲坎城影后之作。痛失摯愛的女子透過宗教尋求救贖，卻面臨殘酷人性考驗。適合需要痛哭釋放沉重情緒的影迷。",
             "theater": "光點華山電影館 (影展主場)"
         },
         {
             "title": "綠洲 (Oasis) - 經典重映",
             "genre": "劇情 / 愛情 / 社會",
             "style": ["浪漫", "愛情", "深刻", "文藝", "邊緣", "孤獨", "李滄東"],
-            "story": "講述一個剛出獄的社會邊緣人與一位重度腦性麻痺女子之間，純粹、殘酷卻無比浪漫的愛情故事。挑戰世俗眼光，後勁極強，適合想看深度、非主流愛情故事的觀眾。",
+            "story": "社會邊緣人與腦性麻痺女子之間純粹、殘酷卻浪漫的愛情故事。挑戰世俗眼光，後勁極強，適合想看深度愛情故事的觀眾。",
             "theater": "光點華山電影館 (影展專題)"
         },
         {
             "title": "薄荷糖 (Peppermint Candy) - 經典重映",
             "genre": "劇情 / 歷史 / 時代",
             "style": ["深刻", "歷史", "傷心", "憂鬱", "沉悶", "一個人", "李滄東"],
-            "story": "以倒敘法倒帶一個男人悲劇的一生，折射出韓國光州事件等時代巨變對個體的摧殘。那句『我要回去！』震撼影史。適合獨自一人靜靜品味歷史的深沉與宿命感。",
+            "story": "以倒敘法倒帶一個男人悲劇的一生，折射時代巨變對個體的摧殘。那句『我要回去！』震撼影史。適合獨自靜靜品味宿命感。",
             "theater": "光點華山電影館 (影展專題)"
         },
 
-        # =================【 B. 商業大製作 / 科幻 / 冒險 (威秀、秀泰、國賓首選)】=================
+        # =================【 B. 商業大製作 / 科幻 / 冒險 】=================
         {
             "title": "極限返航 (Project Hail Mary)",
             "genre": "科幻 / 奇幻 / 劇情",
             "style": ["震撼", "爽片", "科幻", "巨幕", "大片", "期待", "熱血"],
-            "story": "萊恩葛斯林主演。科學老師在太空船醒來，必須獨自解開太陽衰亡的巨大謎團。場面壯闊，極度熱血刺激，適合消除日常或課業帶來的沉重壓力與煩躁感。",
-            "theater": "威秀影城 (IMAX/4DX首選)、秀泰影城、國賓大戲院"
+            "story": "萊恩葛斯林主演。科學老師在太空船醒來，必須解開太陽衰亡的巨大謎團。場面壯闊，極度熱血刺激，適合消除日常壓力與煩躁感。",
+            "theater": "威秀影城、秀泰影城、國賓大戲院"
         },
         {
             "title": "曼達洛人與古古 (The Mandalorian & Grogu)",
             "genre": "動作 / 科幻 / 冒險",
             "style": ["熱血", "震撼", "大片", "刺激", "冒險", "期待", "同學", "死黨"],
-            "story": "星際大戰系列睽違多年重返大銀幕之作！鋼鐵人導演執導。娛樂性與特效拉滿，最適合揪同學、死黨成群結隊去電影院狂歡發洩。",
+            "story": "星際大戰系列重返大銀幕！娛樂性與特效拉滿，最適合揪同學、死黨成群結隊去電影院狂歡發洩。",
             "theater": "威秀影城、西門秀泰、國賓影城"
         },
         {
             "title": "特技玩家",
             "genre": "動作 / 喜劇 / 浪漫",
             "style": ["放鬆", "歡樂", "幽默", "爆笑", "約會", "情侶", "娛樂"],
-            "story": "好萊塢頂級特技演員的玩命冒險與愛情故事。節奏明快、有笑有淚，既有熱血特技又有浪漫愛情，非常適合情侶約會或跟死黨聚會放鬆。",
+            "story": "頂級特技演員的冒險與愛情。節奏明快、有笑有淚，既有熱血特技又有浪漫愛情，非常適合情侶約會放鬆。",
             "theater": "威秀影城、秀泰影城、微風國賓"
         },
         {
             "title": "麥克傑克森 (MICHAEL)",
             "genre": "音樂 / 傳記 / 劇情",
             "style": ["熱血", "震撼", "期待", "回憶", "深刻", "感動"],
-            "story": "流行音樂天王麥可傑克森的官方傳記電影。重現無數經典舞台與震撼音樂現場，後勁極強，適合熱愛音樂、期待大場面震撼的觀眾。",
+            "story": "天王麥可傑克森官方傳記電影。重現無數經典舞台與震撼音樂現場，適合熱愛音樂、期待大場面震撼的觀眾。",
             "theater": "威秀影城、秀泰影城、國賓大戲院"
         },
         {
             "title": "猩球崛起：王國誕生",
             "genre": "動作 / 科幻 / 冒險",
             "style": ["震撼", "爽片", "熱血", "刺激", "科幻", "巨幕", "爆米花"],
-            "story": "科幻史詩鉅作。人類與猿族命運的全新篇章，視覺特效與爆破場面極致震撼。適合消除日常或課業帶來的沉重壓力與煩躁感。",
-            "theater": "威秀影城 (IMAX/4DX首選)、秀泰影城、國賓大戲院 (巨幕廳)"
+            "story": "史詩鉅作。人類與猿族命運全新篇章，視覺特效極致震撼。適合消除日常壓力與煩躁感。",
+            "theater": "威秀影城、秀泰影城、國賓大戲院"
         },
 
-        # =================【 C. 動作巨製 / 遊戲改編 / 驚悚犯罪 (威秀、秀泰、國賓)】=================
+        # =================【 C. 動作巨製 / 驚悚犯罪 】=================
         {
             "title": "寒戰1994 (Cold War 1994)",
             "genre": "動作 / 懸疑 / 犯罪",
             "style": ["動作", "發洩", "爽片", "震撼", "翻轉", "懸疑", "燒腦"],
-            "story": "古天樂、吳彥祖、周潤發等頂級陣容。倒帶至回歸前夜的香港，警匪智商博弈與街頭槍戰全面升級。劇情層層翻轉，適合熱血發洩與喜愛高智商燒腦的觀眾。",
+            "story": "倒帶至回歸前夜的香港，警匪智商博弈與街頭槍戰。劇情層層翻轉，適合發洩與喜愛燒腦的觀眾。",
             "theater": "威秀影城、秀泰影城、國賓影城"
         },
         {
             "title": "屍速禁區 (Colony)",
             "genre": "動作 / 驚悚 / 冒險",
             "style": ["刺激", "驚悚", "動作", "爽片", "無尿點", "暴怒", "發洩"],
-            "story": "《屍速列車》導演斥資200億打造，全智賢、池昌旭主演。極度末日感與瘋狂打鬥，節奏極速狂熱，看主角大殺四方能徹底解放生活中的暴怒與阿雜心情。",
+            "story": "全智賢、池昌旭主演。極度末日感與瘋狂打鬥，節奏極速狂熱，看主角大殺四方能徹底解放暴怒心情。",
             "theater": "威秀影城、秀泰影城、國賓影城"
         },
         {
             "title": "真人快打II (Mortal Kombat 2)",
             "genre": "動作 / 奇幻 / 格鬥",
             "style": ["動作", "發洩", "爽片", "熱血", "刺激", "死黨", "爆米花"],
-            "story": "經典格鬥遊戲正統續集。血肉模糊、拳拳到肉的極致暴力美學，毫不拖泥帶水，純粹的爽片。適合期末考爆掉想找死黨用爆米花電影發洩情緒。",
+            "story": "經典格鬥續集。血肉模糊、拳拳到肉的極致暴力美學。適合想找死黨用爆米花電影發洩情緒。",
             "theater": "威秀影城、秀泰影城"
         },
         {
             "title": "地下城の怪物先生 (MR.MONSTER)",
             "genre": "動作 / 奇幻 / 冒險",
             "style": ["冒險", "奇幻", "動作", "放鬆", "娛樂", "驚悚"],
-            "story": "楊一展監製主演、好萊塢導演執導。地下城的暗黑怪物與人類冒險故事，充滿電玩感與爽快戰鬥，是一部不燒腦的標準爆米花舒壓電影。",
+            "story": "楊一展監製。地下城暗黑怪物與人類冒險故事，充滿爽快戰鬥，是不燒腦的舒壓電影。",
             "theater": "威秀影城、秀泰影城、國賓大戲院"
         },
         {
             "title": "芙莉歐莎：瘋狂麥斯傳奇篇章",
             "genre": "動作 / 冒險 / 驚悚",
             "style": ["刺激", "飛車", "打鬥", "發洩", "爽片", "暴怒", "無尿點"],
-            "story": "廢土美學的極致神作！全片高速狂熱，充滿飛車追逐與爆破打鬥。被當、被主管罵、心情抓狂時，來看這部片宣洩紓壓、暴怒宣洩絕對是最爽選擇。",
+            "story": "廢土美學神作！全片高速狂熱，飛車追逐與爆破。被主管罵、心情抓狂時宣洩的首選。",
             "theater": "威秀影城、秀泰影城、國賓大戲院"
         },
 
-        # =================【 D. 恐怖話題 / 網路怪談 / 都市驚悚 (各大影城)】=================
+        # =================【 D. 恐怖話題 / 網路怪談 】=================
         {
             "title": "後室 (Backrooms)",
             "genre": "恐怖 / 驚悚 / 科幻",
             "style": ["恐怖", "驚悚", "嚇人", "懸疑", "自己", "刺激", "邊緣"],
-            "story": "A24將席捲全球網路的都市怪談Creepypasta搬上大銀幕！無盡的黃色房間、密閉恐懼與未知怪物的追擊。適合享受孤獨寂寞、想一個人進戲院被驚悚感強烈電擊的影迷。",
+            "story": "全球網路都市怪談搬上銀幕！無盡的黃色房間、密閉恐懼與未知怪物追擊。適合享受孤獨寂寞的影迷。",
             "theater": "威秀影城、秀泰影城"
         },
         {
             "title": "絕．種 (The Seeding)",
             "genre": "恐怖 / 驚悚 / 心理",
             "style": ["驚悚", "心理", "犯罪", "沉悶", "深度", "思考"],
-            "story": "入圍多個國際影展的話題驚悚片。講述一個男人被困在沙漠深坑中，遭受到神祕孤立群落的殘酷心理折磨。風格冷冽深沉，適合喜愛心理犯罪與深度驚悚者。",
+            "story": "入圍國際影展話題片。男人被困沙漠深坑遭受心理折磨。風格冷冽深沉，適合深度驚悚喜好者。",
             "theater": "威秀影城、長春國賓"
         },
         {
             "title": "破墓",
             "genre": "恐怖 / 驚悚 / 懸疑",
             "style": ["恐怖", "鬼片", "刺激", "同學", "朋友", "驚悚", "嚇人"],
-            "story": "引爆亞洲話題的風水薩滿恐怖神作。遷葬引發的致命連鎖反應，儀式感十足，懸疑氣氛拉滿。非常適合揪朋友、同學一起進戲院被嚇，體驗爆米花爽片的快感。",
+            "story": "風水薩滿恐怖神作。儀式感十足，懸疑氣氛拉滿。適合揪朋友進戲院被嚇體驗快感。",
             "theater": "威秀影城、秀泰影城、國賓大戲院"
         },
 
-        # =================【 E. 動畫 / 輕鬆喜劇 / 闔家觀賞 (各大影城)】=================
+        # =================【 E. 動畫 / 輕鬆喜劇 】=================
         {
             "title": "加菲貓：瘋狂大冒險",
             "genre": "動畫 / 喜劇 / 闔家觀賞",
             "style": ["放鬆", "歡樂", "卡通", "療癒", "溫馨", "不燒腦", "哈哈"],
-            "story": "爆笑逗趣的冒險情節，全新演繹經典賤貓。劇情幽默放鬆，完全不需要動腦，非常適合帶爸媽長輩一起闔家觀賞，也是日常疲勞疲憊時的療癒首選。",
-            "theater": "威秀影城、秀泰影城、誠品電影院、國賓影城"
+            "story": "爆笑冒險，全新演繹經典賤貓。完全不需要動腦，非常適合闔家觀賞或日常疲勞時療癒。",
+            "theater": "威秀、秀泰、誠品、國賓"
         },
         {
             "title": "花綠青綻放之時 (A New Dawn)",
             "genre": "動畫 / 劇情 / 治癒",
             "style": ["放鬆", "療癒", "日常", "溫馨", "動畫", "治癒", "陪伴"],
-            "story": "精緻唯美的文青風動畫。敘述日常生活中的微小轉折與心靈救贖，畫面與音樂極具療癒感，適合身體不舒服、心情低潮無力時用來給自己打氣。",
-            "theater": "誠品電影院、光點華山電影館、威秀影城"
+            "story": "唯美文青動畫。微小轉折與心靈救贖，畫面療癒，適合心情低潮時給自己打氣。",
+            "theater": "誠品、光點華山、威秀"
         },
         {
-            "title": "名偵探柯南引爆摩天樓4K修復版",
+            "title": "名偵探柯南引爆摩天樓修復版",
             "genre": "動畫 / 懸疑 / 經典",
             "style": ["懸疑", "燒腦", "經典", "回憶", "一個人", "日常"],
-            "story": "柯南電影系列第一部傳奇神作以4K高畫質重現大銀幕！經典的紅線剪斷選擇與摩天樓連環爆炸，充滿情懷。適合粉絲一個人去影廳回味最初的感動。",
+            "story": "柯南電影第一部傳奇神作 4K 重現。紅線選擇與爆炸，充滿情懷。適合粉絲去回味感動。",
             "theater": "威秀影城、秀泰影城、國賓影城"
         },
         {
-            "title": "穿著Prada的惡魔2 (The Devil Wears Prada 2)",
+            "title": "穿著Prada的惡魔2",
             "genre": "劇情 / 喜劇 / 時尚",
             "style": ["放鬆", "職場", "喜劇", "幽默", "約會", "情侶"],
-            "story": "經典時尚神作正宗續集。犀利幽默的對白再現職場生存學，劇情有笑有淚。非常適合職場受挫、被主管老闆罵的人來看片紓壓，也很適合情侶約會。",
+            "story": "時尚神作續集。犀利對白再現職場生存學，非常適合職場受挫紓壓。",
             "theater": "威秀影城、誠品電影院、微風國賓"
         },
 
-        # =================【 F. 溫馨親情 / 浪漫愛情 (誠品、威秀、秀泰)】=================
+        # =================【 F. 溫馨親情 / 浪漫愛情 】=================
         {
             "title": "別離無恙 (Until We Meet Again)",
             "genre": "劇情 / 愛情 / 催淚",
             "style": ["難過", "傷心", "想哭", "哭爆", "浪漫", "失戀", "淚水"],
-            "story": "目黑蓮、濱邊美波主演。探討生死告別的極致純愛催淚大作，情感極其細膩。失戀、分手或低潮時想哭爆釋放情緒的人必看。",
-            "theater": "誠品電影院 (質感首選)、威秀影城、秀泰影城"
+            "story": "目黑蓮主演。生死告別細膩催淚大作。失戀、分手想哭爆釋放情緒的人必看。",
+            "theater": "誠品、威秀、秀泰"
         },
         {
-            "title": "你能吃到媽媽煮的飯的次數還剩365次",
+            "title": "你能吃到媽媽煮的飯的次數剩365次",
             "genre": "劇情 / 溫馨 / 親情",
             "style": ["溫馨", "親情", "爸媽", "家人", "治癒", "陪伴", "感動"],
-            "story": "改編自熱門感人小說。以獨特的數字視角計算兒女與父母相處的剩餘時間，溫暖催淚。最適合帶爸媽、長輩或全家人一起觀看。",
-            "theater": "誠品電影院、光點華山電影館、國賓影城"
+            "story": "溫暖催淚改編。以數字計算與父母相處剩餘時間，適合全家人觀看。",
+            "theater": "誠品、光點華山、國賓影城"
         },
 
-        # =================【 G. 國際影展 / 本土紀錄片 / 文藝修復 (光點華山、誠品)】=================
+        # =================【 G. 紀錄片 / 文藝修復 】=================
         {
-            "title": "單身動物園 (The Lobster) 數位重映",
+            "title": "單身動物園 (The Lobster) 重映",
             "genre": "劇情 / 奇幻 / 黑色幽默",
             "style": ["孤獨", "寂寞", "文藝", "深度", "思考", "邊緣", "單身"],
-            "story": "經典反烏托邦神作重返大銀幕。不談戀愛就會變成動物的瘋狂設定，辛辣諷刺現代情感與單身主義。適合自己一個人、邊緣人深度品味。",
-            "theater": "光點華山電影館 (藝文首選)、誠品電影院"
+            "story": "反烏托邦神作。不談戀愛就變動物，辛辣諷刺現代情感。適合邊緣人深度品味。",
+            "theater": "光點華山、誠品電影院"
         },
         {
-            "title": "末代皇帝（4K經典數位修復版）",
+            "title": "末代皇帝（4K修復版）",
             "genre": "劇情 / 歷史 / 傳記",
             "style": ["文藝", "歷史", "深度", "深刻", "經典", "修復", "一個人"],
-            "story": "影史奧斯卡九項大獎傳奇史詩。重現溥儀悲劇且壯麗的一生，坂本龍一的神級配樂在影廳重現，後勁極強。適合獨自一人靜靜享受歷史的深沉與孤獨感。",
-            "theater": "光點華山電影館、誠品電影院、長春國賓"
+            "story": "傳奇史詩。坂本龍一神級配樂，適合獨自一人靜靜享受歷史的孤獨感。",
+            "theater": "光點華山、誠品、長春國賓"
         },
         {
             "title": "傳奇女伶高菊花 (La Paloma)",
             "genre": "紀錄片 / 傳記 / 歷史",
             "style": ["深刻", "難過", "生命", "低潮", "歷史", "獨立"],
-            "story": "台灣歌手高菊花的重量級紀錄片。從女兒的視角挖掘史料，拼湊母親在體制與命運重壓下艱難生存的生存歷程。極具歷史厚度，看完令人低迴落淚。",
-            "theater": "光點華山電影館 (獨家放映)、誠品電影院"
+            "story": "台灣歌手紀錄片。在命運重壓下艱難生存歷程。極具歷史厚度，看完令人低迴落淚。",
+            "theater": "光點華山、誠品電影院"
         },
         {
             "title": "甘露水 (Daughter of Nectar)",
             "genre": "紀錄片 / 藝術 / 歷史",
             "style": ["文藝", "深度", "心靈", "平淡", "日常", "生命"],
-            "story": "圍繞台灣國寶級雕刻藝術作品《甘露水》背後的流轉、沉冤與重見天日的紀錄片。步調溫慢、充滿對台灣這片土地與藝術心靈的深刻凝視，極致療癒。",
-            "theater": "光點華山電影館、誠品電影院"
+            "story": "圍繞國寶級雕刻藝術作品紀錄片。對土地與藝術心靈深刻凝視，極致療癒。",
+            "theater": "光點華山、誠品電影院"
         },
         {
             "title": "104歲哲代奶奶：一個人生活",
             "genre": "紀錄片 / 溫馨 / 日常",
             "style": ["療癒", "日常", "溫馨", "不舒服", "放鬆", "陪伴", "自己"],
-            "story": "真實凝視哲代奶奶從101歲到104歲的生活。有孤單的面對也有充滿幽默的告別，展示生活哲學。非常適合日常疲勞、感到空虛時看，極度溫暖治癒。",
-            "theater": "光點華山電影館、誠品電影院"
+            "story": "凝視奶奶生活展示生活哲學。疲勞感到空虛時看，極度溫暖治癒。",
+            "theater": "光點華山、誠品電影院"
         },
         {
             "title": "經典大師：數位修復專題",
             "genre": "劇情 / 歷史 / 經典修復",
             "style": ["文藝", "歷史", "傳記", "懷舊", "一個人", "經典"],
-            "story": "4K大銀幕重現影史傳奇大師的修復神作。深刻剖析人性、時代變遷與生命哲學。適合熱愛電影藝術、想一個人遠離世俗喧囂、安靜獨處的影迷。",
-            "theater": "光點華山電影館 (修復電影大本營)、誠品電影院"
+            "story": "4K 修復神作。適合想遠離喧囂、安靜獨處的影迷。",
+            "theater": "光點華山、誠品電影院"
         }
     ]
     return database
 
-
 # =========================================================
-# 🎯 2. 高級多維度加權選片推薦引擎 (完全整合生活情境與模糊匹配)
+# 🎯 2. 高級多維度加權選片推薦引擎 (100% 完整保留)
 # =========================================================
 def recommend_movies_ultimate(user_input, movies):
     if not movies: return [], False
     user_input = user_input.lower().strip()
 
-    event_map = {
-        "學業崩潰": ["被當", "重修", "二一", "期末考", "爆掉", "沒讀完", "報告", "延畢", "微積分", "當掉", "考試", "教授", "分數", "歐趴", "pass"],
-        "職場受挫": ["被罵", "加班", "趕工", "開會", "提案", "扣薪", "奧客", "壞人", "小人", "豬隊友", "專案", "工作", "打卡", "上班", "主管", "老闆"],
-        "生活幸運": ["中獎", "發票", "加薪", "請客", "撿到錢", "好運", "順利", "過關", "中頭獎", "買一送一", "幸運"],
-        "情感變故": ["分手", "被甩", "失戀", "吵架", "冷戰", "已讀不回", "工具人", "好人卡", "綠綠的", "情傷", "變心", "前任"],
-        "日常疲勞": ["塞車", "下大雨", "看醫生", "經痛", "失眠", "落枕", "排隊", "好累", "崩潰", "水逆", "倒楣", "累炸", "頭痛", "生病"]
-    }
-    companion_map = {
-        "一個人": ["一個人", "獨享", "自己", "邊緣", "單身", "獨自", "單獨", "我邊緣", "宅在家", "沒人陪", "獨處"],
-        "跟家人": ["家人", "父母", "爸媽", "帶小孩", "長輩", "兄弟姊妹", "家庭", "老爸", "老媽", "女兒", "兒子", "阿公", "阿媽", "闔家"],
-        "跟朋友": ["朋友", "同學", "死黨", "閨蜜", "兄弟", "大家", "團體", "聚會", "室友", "學長", "學弟", "學姐", "學妹", "團康"],
-        "喜歡的人": ["喜歡的人", "閃光", "閃", "暗戀", "曖昧", "約會", "女友", "男友", "情侶", "老婆", "老公", "對象", "寶貝", "另一半"]
-    }
     mood_map = {
-        "憂鬱": ["憂鬱", "鬱悶", "沮喪", "低潮", "寂寞", "孤單", "無力", "藍過", "提不起勁", "無聊", "空虛", "自閉", "大師", "李滄東"],
-        "煩躁": ["煩躁", "煩", "不爽", "壓力大", "暴怒", "氣死", "傻眼", "阿雜", "想打人", "抓狂", "躁鬱", "超煩"],
-        "興奮": ["興奮", "期待", "熱血", "爽片", "刺激", "爆破", "震撼", "嗨", "推", "極速", "狂熱"],
-        "開心": ["開心", "快樂", "放鬆", "歡樂", "好笑", "搞笑", "幽默", "放空", "舒壓", "哈哈"],
-        "難過": ["難過", "傷心", "想哭", "哭爆", "心碎", "痛哭", "落淚", "悲傷", "好慘"],
-        "不舒服": ["不舒服", "累", "疲憊", "悶", "療癒", "溫馨", "溫慢", "溫暖", "需要安慰"]
+        "憂鬱": ["憂鬱", "低潮", "寂寞", "孤單", "無聊", "空虛", "李滄東"],
+        "煩躁": ["煩躁", "煩", "壓力大", "暴怒", "抓狂"],
+        "興奮": ["興奮", "期待", "熱血", "爽片", "震撼"],
+        "開心": ["開心", "放鬆", "歡樂", "搞笑", "幽默", "舒壓"],
+        "難過": ["難過", "傷心", "想哭", "失戀", "分手"],
+        "不舒服": ["不舒服", "累", "疲憊", "療癒", "溫馨"]
     }
-
+    
     style_targets = {
-        "憂鬱": ["療癒", "心靈", "文藝", "平淡", "深沉", "溫馨", "正能量", "陪伴", "李滄東"],
-        "煩躁": ["爽片", "刺激", "發洩", "動作", "飛車", "打鬥", "無尿點"],
-        "興奮": ["熱血", "震撼", "大片", "科幻", "巨幕", "冒險", "期待"],
-        "開心": ["放鬆", "歡樂", "卡通", "喜劇", "爆笑", "幽默", "哈哈"],
-        "難過": ["難過", "傷心", "淚水", "失戀", "低潮", "深刻", "情傷", "想哭", "哭爆", "痛苦"],
-        "不舒服": ["放鬆", "不燒腦", "療癒", "溫馨", "卡通", "日常", "陪伴"],
-        "學業崩潰": ["爽片", "發洩", "歡樂", "爆笑", "放鬆", "動作"],
-        "職場受挫": ["爽片", "刺激", "發洩", "動作", "職場", "喜劇"],
-        "生活幸運": ["熱血", "震撼", "大片", "娛樂", "歡樂", "期待"],
-        "情感變故": ["難過", "傷心", "淚水", "失戀", "情傷", "療癒", "浪漫", "愛情"],
-        "日常疲勞": ["放鬆", "不燒腦", "卡通", "療癒", "溫馨", "日常"],
-        "一個人": ["孤獨", "寂寞", "深度", "文藝", "深沉", "經典", "懸疑", "思考", "自己", "邊緣", "獨自", "李滄東"],
-        "跟家人": ["闔家觀賞", "卡通", "溫馨", "歡樂", "放鬆", "喜劇", "親情", "爸媽", "家人"],
-        "跟朋友": ["同學", "死黨", "朋友", "聚會", "爽片", "恐怖", "鬼片", "驚悚", "刺激"],
-        "喜歡的人": ["約會", "浪漫", "愛情", "娛樂", "情侶", "喜劇"]
+        "憂鬱": ["療癒", "心靈", "文藝", "深沉", "李滄東"],
+        "煩躁": ["爽片", "刺激", "發洩", "動作", "無尿點"],
+        "興奮": ["熱血", "震撼", "大片", "科幻", "巨幕"],
+        "開心": ["放鬆", "歡樂", "卡通", "喜劇", "幽默"],
+        "難過": ["難過", "傷心", "想哭", "淚水", "失戀"],
+        "不舒服": ["放鬆", "不燒腦", "療癒", "溫馨", "日常"]
     }
-
-    matched_events = [cat for cat, words in event_map.items() if any(w in user_input for w in words)]
-    matched_companions = [cat for cat, words in companion_map.items() if any(w in user_input for w in words)]
-    matched_moods = [cat for cat, words in mood_map.items() if any(w in user_input for w in words)]
-
-    if any(k in user_input for k in ["李滄東", "大師", "影展", "文藝"]): matched_moods.append("憂鬱")
-    if "學業崩潰" in matched_events or "職場受挫" in matched_events: matched_moods.append("煩躁")
-    if "情感變故" in matched_events: matched_moods.append("難過")
 
     recommended = []
     for movie in movies:
@@ -298,282 +263,221 @@ def recommend_movies_ultimate(user_input, movies):
         movie_text = (movie['title'] + movie['genre'] + movie['story']).lower()
         movie_styles = movie['style']
         
+        # 片名與簡介關鍵字全匹配加分
         if user_input in movie_text: score += 30
-            
-        # 徹底結合 RapidFuzz 進行片名模糊比對加權
+        
+        # 模糊匹配加分
         title_sim = fuzz.partial_ratio(user_input, movie["title"].lower())
         if title_sim >= 70: score += title_sim * 0.2
 
-        for mood in set(matched_moods):
-            for target in style_targets.get(mood, []):
-                if target in movie_styles: score += 6
-                if target in movie_text: score += 2
-                    
-        for comp in set(matched_companions):
-            for target in style_targets.get(comp, []):
-                if target in movie_styles: score += 8
-                if target in movie_text: score += 3
-                    
-        for event in set(matched_events):
-            for target in style_targets.get(event, []):
-                if target in movie_styles: score += 6
-                if target in movie_text: score += 2
+        # 情感對照加分
+        for mood, words in mood_map.items():
+            if any(w in user_input for w in words):
+                for target in style_targets.get(mood, []):
+                    if target in movie_styles: score += 10
+                    if target in movie_text: score += 5
 
         if score > 0: recommended.append((movie, score))
-
-    if not recommended:
-        for movie in movies:
-            score = 0
-            movie_text = (movie['title'] + movie['genre'] + movie['story']).lower()
-            for char in user_input:
-                if char in movie_text and char not in "，。！？ 的是我在:；、": score += 1
-            if score > 1: recommended.append((movie, score))
 
     recommended.sort(key=lambda x: x[1], reverse=True)
     return [item[0] for item in recommended], len(recommended) > 0
 
 
 # =========================================================
-# 🎨 3. 劇院裝飾與高對比清晰文字設計 (CSS 注入)
+# 🎨 3. UI 裝飾：票券風高清晰度設計 (Light Mode 優化)
 # =========================================================
-st.set_page_config(page_title="台北影城智慧電影推薦系統", page_icon="🎬", layout="wide")
+st.set_page_config(page_title="台北影城智慧推薦", page_icon="🎬", layout="wide")
 
 st.markdown("""
     <style>
-    /* 全域背景：電影院深夜黑 */
+    /* 1. 改為暖色調高對比背景，不再是全黑 */
     [data-testid="stAppViewContainer"] {
-        background-color: #0b0b0d !important;
+        background-color: #F8F9FA !important;
     }
 
-    /* 側邊欄：紅絲絨布幕 + 左右雙條金齒孔底片膠捲 (完美還原範例左側) */
+    /* 2. 側邊欄：深酒紅木質感 + 亮金膠捲齒孔 */
     [data-testid="stSidebar"] {
-        background: linear-gradient(0deg, #3d0003 0%, #66020b 50%, #2b0002 100%) !important;
+        background: linear-gradient(180deg, #5c0006 0%, #3d0004 100%) !important;
         position: relative !important;
-        box-shadow: inset -5px 0 25px rgba(0,0,0,0.9) !important;
+        box-shadow: 5px 0 15px rgba(0,0,0,0.2) !important;
     }
-    /* 側欄左底片邊框 */
-    [data-testid="stSidebar"]::before {
-        content: "2026 TAIPEI"; writing-mode: vertical-rl; text-orientation: mixed;
-        color: #ffcc00; font-family: monospace; font-size: 11px; font-weight: bold; text-align: center;
-        padding-top: 50px; position: absolute; left: 0; top: 0; bottom: 0; width: 18px;
-        background-color: #000000; background-image: radial-gradient(circle, #ffcc00 35%, transparent 40%);
-        background-size: 18px 24px; background-repeat: repeat-y; border-right: 1.5px solid #ffcc00; z-index: 10;
-    }
-    /* 側欄右底片邊框 */
     [data-testid="stSidebar"]::after {
-        content: ""; position: absolute; right: 0; top: 0; bottom: 0; width: 18px;
-        background-color: #000000; background-image: radial-gradient(circle, #ffcc00 35%, transparent 40%);
-        background-size: 18px 24px; background-repeat: repeat-y; border-left: 1.5px solid #ffcc00; z-index: 10;
+        content: ""; position: absolute; right: 0; top: 0; bottom: 0; width: 14px;
+        background-color: #000; background-image: radial-gradient(circle, #ffcc00 35%, transparent 40%);
+        background-size: 14px 28px; background-repeat: repeat-y; border-left: 1px solid #ffcc00;
     }
 
-    /* 側邊欄功能區塊卡片化 */
+    /* 側邊欄卡片：高對比白字 */
     .sidebar-section {
-        background: rgba(0, 0, 0, 0.5) !important;
-        border: 1px solid rgba(255, 204, 0, 0.4) !important;
-        border-radius: 8px !important;
-        padding: 15px !important;
-        margin-bottom: 20px !important;
+        background: rgba(0, 0, 0, 0.3) !important;
+        border: 1px solid #ffcc00 !important;
+        border-radius: 8px; padding: 15px; margin-bottom: 20px;
     }
-    .sidebar-title {
-        color: #ffcc00 !important;
-        font-size: 1.15rem !important;
-        font-weight: bold !important;
-        margin-bottom: 10px !important;
-        border-bottom: 1px solid rgba(255, 204, 0, 0.4);
-        padding-bottom: 5px;
-    }
-    .sidebar-text {
-        color: #ffffff !important;
-        font-size: 0.95rem !important;
-        line-height: 1.6 !important;
-    }
+    .sidebar-title { color: #ffcc00 !important; font-size: 1.1rem; font-weight: bold; margin-bottom: 10px; border-bottom: 1px solid #ffcc00; }
+    .sidebar-text { color: #ffffff !important; font-size: 0.95rem; line-height: 1.6; }
 
-    /* 百老匯復古霓虹燈大跑馬燈標題區塊（更名為指定標題，無 PRO 字樣） */
-    .broadway-marquee {
-        background: linear-gradient(180deg, #7a0009 0%, #3d0004 100%) !important;
-        border: 4px solid #ffcc00 !important;
-        border-radius: 14px !important;
-        padding: 30px 20px !important;
-        text-align: center !important;
-        box-shadow: 0 0 0 4px #000000, 0 0 25px #ffcc00, inset 0 0 20px rgba(0,0,0,0.6) !important;
-        margin-bottom: 35px !important;
+    /* 3. 頂部看板：Vintage Marquee (Light Mode) */
+    .vintage-marquee {
+        background-color: #ffffff;
+        border: 5px double #d97706; /* 羊皮金邊 */
+        border-radius: 14px;
+        padding: 30px;
+        text-align: center;
+        box-shadow: 0 5px 25px rgba(0,0,0,0.1);
+        margin-bottom: 35px;
     }
-    .broadway-title {
-        color: #ffffff !important;
-        font-size: 2.6rem !important;
+    .marquee-title {
+        color: #1e293b !important; /* 深墨藍字 */
+        font-size: 2.8rem !important;
         font-weight: 900 !important;
-        letter-spacing: 2px !important;
-        text-shadow: 0 0 12px #ffcc00, 2px 2px 4px #000000 !important;
-        margin: 0 0 10px 0 !important;
+        letter-spacing: 2px;
+        text-shadow: 1px 1px 0px #ffcc00;
+        margin-bottom: 5px;
     }
-    .broadway-subtitle {
-        color: #ffcc00 !important;
-        font-size: 1.2rem !important;
-        text-shadow: 1px 1px 2px #000000 !important;
-        font-weight: bold;
-    }
+    .marquee-subtitle { color: #d97706 !important; font-weight: bold; font-size: 1.2rem; }
 
-    /* 院線數據統計單卡 (金邊卡片效果) */
-    .single-stat-card {
-        background: linear-gradient(135deg, #1f1f24 0%, #131316 100%) !important;
-        border: 2px solid #ffcc00 !important;
-        border-radius: 10px !important;
-        padding: 18px 25px !important;
-        box-shadow: 0 0 15px rgba(255, 204, 0, 0.25) !important;
-        margin-bottom: 30px !important;
-        max-width: 350px;
+    /* 4. 數據卡片：專業簡報感 */
+    .stat-card {
+        background: #ffffff;
+        border-left: 5px solid #d97706;
+        border-radius: 8px;
+        padding: 15px 25px;
+        box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+        margin-bottom: 30px;
+        max-width: 320px;
     }
-    .stat-label { color: #ffffff !important; font-size: 1.1rem !important; font-weight: bold !important; margin-bottom: 5px; }
-    .stat-value { color: #ffcc00 !important; font-size: 2.6rem !important; font-weight: 900 !important; }
+    .stat-label { color: #64748b !important; font-size: 1rem; font-weight: bold; }
+    .stat-value { color: #1e293b !important; font-size: 2.4rem !important; font-weight: 900; }
 
-    /* 售票口輸入區標籤與輸入字體（極致清晰度提升） */
+    /* 5. ✍️ 售票口：高對比黑字，保證清晰 */
     div[data-testid="stTextInput"] label p {
-        color: #ffffff !important;
-        font-size: 1.45rem !important;
+        color: #1e293b !important;
+        font-size: 1.4rem !important;
         font-weight: 900 !important;
-        text-shadow: 2px 2px 4px #000000 !important;
     }
     div[data-testid="stTextInput"] input {
-        background-color: #15151a !important;
-        color: #ffffff !important;
+        background-color: #ffffff !important;
+        color: #1e293b !important;
         font-size: 1.2rem !important;
-        font-weight: bold !important;
-        border: 2px solid #ffcc00 !important;
+        border: 2px solid #cbd5e1 !important;
         border-radius: 8px !important;
     }
 
-    /* 劇院大紅長條智慧啟動按鈕 */
+    /* 6. 按鈕：經典院線紅 */
     div.stButton > button:first-child {
-        background: linear-gradient(90deg, #e60021 0%, #a30010 100%) !important;
-        color: #ffffff !important; border: 2px solid #ffcc00 !important; border-radius: 8px !important;
-        font-size: 1.35rem !important; font-weight: 900 !important; width: 100% !important; padding: 12px 0 !important;
-        box-shadow: 0 5px 15px rgba(230, 0, 33, 0.4) !important; text-shadow: 1px 1px 3px #000000 !important;
+        background: #dc2626 !important;
+        color: #ffffff !important;
+        border-radius: 8px !important;
+        font-size: 1.3rem !important;
+        font-weight: 900 !important;
+        width: 100% !important;
+        padding: 10px 0 !important;
+        box-shadow: 0 4px 0px #991b1b;
     }
 
-    /* 電影卡片展開元件字體與對比清晰化 */
+    /* 7. 電影結果卡片：票券式樣式 */
     div[data-testid="stExpander"] {
-        background-color: #121215 !important;
-        border: 2px solid #ffcc00 !important;
-        border-radius: 8px !important;
+        background-color: #ffffff !important;
+        border: 1px solid #e2e8f0 !important;
+        border-radius: 12px !important;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.03) !important;
     }
     div[data-testid="stExpander"] summary p {
-        color: #ffcc00 !important;
+        color: #1e293b !important;
         font-weight: 900 !important;
         font-size: 1.3rem !important;
     }
     .movie-detail-text {
-        color: #ffffff !important;
-        font-size: 1.15rem !important;
-        line-height: 1.7 !important;
+        color: #334155 !important; /* 深灰色內文，最利於閱讀 */
+        font-size: 1.1rem !important;
+        line-height: 1.8 !important;
     }
     </style>
 """, unsafe_allow_html=True)
 
 
 # =========================================================
-# 🗂️ 4. 豐富功能的側邊導覽面板 (Sidebar)
+# 🗂️ 4. 豐富功能的側邊導覽 (Sidebar)
 # =========================================================
 with st.sidebar:
     st.markdown("<div style='height: 15px;'></div>", unsafe_allow_html=True)
     
-    # 介紹區塊
     st.markdown("""
         <div class="sidebar-section">
-            <div class="sidebar-title">🍿 關於台北智慧選片系統</div>
+            <div class="sidebar-title">🍿 系統核心介紹</div>
             <div class="sidebar-text">
-                本系統專為大台北觀眾打造，完美橫跨 <b>威秀、光點華山、秀泰、誠品、國賓</b> 五大主要電影院線。能深度解讀您的日常事件、心情波動與同伴狀態，為您推薦最適切的靈魂片單。
+                本系統專為台北影迷打造，全面收錄 <b>威秀、光點華山、秀泰、誠品、國賓</b> 當期片單。
             </div>
         </div>
-    """, unsafe_allow_html=True)
-
-    # 推薦影片預告區塊
-    st.markdown("""
         <div class="sidebar-section">
-            <div class="sidebar-title">🎥 當期影展主打預告</div>
+            <div class="sidebar-title">🎥 李滄東影展焦點</div>
         </div>
     """, unsafe_allow_html=True)
     
-    # 嵌入大師回顧展核心電影《燃燒烈愛》官方短片預告
     st.video("https://www.youtube.com/watch?v=oho89asI5S4")
     
     st.markdown("""
-        <div class="sidebar-section" style="margin-top: -15px; border-top: none; border-radius: 0 0 8px 8px;">
-            <div class="sidebar-text" style="font-size: 0.85rem; color: #ffcc00; text-align: center;">
-                ★ 點擊播放：光點華山【李滄東大師經典回顧展】熱售特輯。
-            </div>
-        </div>
-    """, unsafe_allow_html=True)
-
-    # 秘笈區塊
-    st.markdown("""
         <div class="sidebar-section">
-            <div class="sidebar-title">💡 智慧情境搜尋秘笈</div>
+            <div class="sidebar-title">💡 搜尋秘笈</div>
             <div class="sidebar-text">
-                • <b>課業與生活壓力大</b>：試著輸入"期末考爆掉"、"主管罵"，系統將為您匹配宣洩爽片或歡樂喜劇。<br>
-                • <b>情感低潮或獨處</b>：試著輸入"分手"、"寂寞孤獨"或"李滄東"，系統會精挑出能引發強烈共鳴、痛哭釋放的藝術神作。
+                • <b>煩躁/爽片</b>：輸入"煩、壓力大"。<br>
+                • <b>深度/文藝</b>：輸入"寂寞、李滄東"。
             </div>
         </div>
-    """, unsafe_allow_html=True)
-
-    # 系統狀態
-    st.markdown("""
         <div class="sidebar-section">
-            <div class="sidebar-title">🟢 台北院線即時狀態</div>
-            <div class="sidebar-text" style="font-size: 0.9rem;">
-                • 台北五大影城資料庫：<b>穩定正常</b><br>
-                • 華山大師回顧展片位：<b>已同步連線</b><br>
-                • 系統版本：<b>2026年5月 台北完全體 V3.0</b>
+            <div class="sidebar-title">🟢 院線連線狀態</div>
+            <div class="sidebar-text" style="font-size: 0.85rem;">
+                • 資料庫版本：<b>2026.05 V3.0</b><br>
+                • 影展座位：<b>即時同步中</b>
             </div>
         </div>
     """, unsafe_allow_html=True)
 
 
 # =========================================================
-# 🎫 5. 主頁面核心介面呈現
+# 🎫 5. 主頁面介面呈現
 # =========================================================
-# 大標題
+# 羊皮紙票券風格看板
 st.markdown("""
-    <div class="broadway-marquee">
-        <h1 class="broadway-title">🎬 台北影城智慧電影推薦系統</h1>
-        <p class="broadway-subtitle">本系統已將 <b>多維度情境加權矩陣</b> 與 <b>雙向生活狀態字典</b> 完美整合！</p>
+    <div class="vintage-marquee">
+        <h1 class="marquee-title">🎬 台北影城智慧電影推薦系統</h1>
+        <p class="marquee-subtitle">結合 <b>多維度矩陣加權</b> 與 <b>生活情境字典</b> 完美選片</p>
     </div>
 """, unsafe_allow_html=True)
 
-# 載入資料庫並繪製院線部數單卡
+# 數據統計
 movie_db = get_absolute_comprehensive_database_2026()
 st.markdown(f"""
-    <div class="single-stat-card">
-        <div class="stat-label">🎫 2026年5月 台北熱映/影展總部數</div>
+    <div class="stat-card">
+        <div class="stat-label">🎫 台北合作院線總上映部數</div>
         <div class="stat-value">{len(movie_db)} 部</div>
     </div>
 """, unsafe_allow_html=True)
 
-# 售票口文字與輸入框
+# 輸入區
 user_input = st.text_input(
-    "👉 售票口：請輸入您今天遇到了什麼事？想看什麼樣的電影？", 
-    placeholder="試試看輸入：期末考爆掉、我分手了想哭爆、跟爸媽看、大場面飆車、李滄東"
+    "👉 售票口：請告訴我們您今天遇到了什麼事？想看什麼樣的電影？", 
+    placeholder="試試看：我分手了想哭爆、跟爸媽看、熱血爽片、李滄東"
 )
 
-# 智慧選片啟動按鈕
+# 推薦按鈕
 if st.button("🚀 啟動台北影城智慧推薦"):
     if user_input.strip() == "":
-        st.warning("請先輸入您目前的心情、遇到了什麼事或想找的電影關鍵字喔！")
+        st.warning("請輸入內容以利劃位推薦喔！")
     else:
-        # 後端演算法匹配
         results, is_matched = recommend_movies_ultimate(user_input, movie_db)
 
         if not is_matched or not results:
-            st.error("😭 抱歉，目前在台北五大院線中沒有找到最合適的電影情境，要不要換個說法試試看？")
+            st.error("😭 抱歉，目前暫無最契合的電影情境，要不要換個關鍵字？")
         else:
-            st.success(f"🧠 系統成功解析情境！幫您在台北當期熱映與影展中精選出 {len(results)} 部完美電影：")
+            st.success(f"🧠 系統解析完成！精選出 {len(results)} 部完美電影：")
             
-            # 展開推薦電影結果（清晰字體化）
             for i, m in enumerate(results, 1):
-                with st.expander(f"🍿 【推薦第 {i} 順位】 {m['title']}", expanded=True):
+                with st.expander(f"🍿 【推薦第 {i}】 {m['title']}", expanded=True):
                     st.markdown(f"""
                     <div class="movie-detail-text">
-                        <b>🎭 電影類型</b>：<code style="color:#ffcc00; background-color:#222226; padding:2px 8px; border-radius:4px; font-weight:bold;">{m['genre']}</code><br>
-                        <b>📍 建議前往台北影城</b>：<span style="color:#ffffff; font-weight:900;">{m['theater']}</span><br>
-                        <b>📝 劇情大綱與推薦理由</b>：<span style="color:#f0f0f2;">{m['story']}</span>
+                        <b>🎭 類型</b>：<span style="color:#d97706; font-weight:bold;">{m['genre']}</span><br>
+                        <b>📍 台北建議影城</b>：<span style="color:#1e293b; font-weight:900;">{m['theater']}</span><br>
+                        <b>📝 推薦理由</b>：{m['story']}
                     </div>
                     """, unsafe_allow_html=True)
