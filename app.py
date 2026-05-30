@@ -205,156 +205,198 @@ def recommend_movies(user_input, movies):
 
 
 # =========================================================
-# 🎨 Streamlit 使用者介面（注入高級電影院與實體底片膠捲視覺）
+# 🎨 Streamlit 使用者介面（完全對齊範例：百老匯燈泡、紅絲絨布幕、雙側膠捲）
 # =========================================================
-# 強制改為配合膠捲大版面的 wide 配置
+# 配置為 wide 寬版以符合範例中雙側膠捲與側欄的大氣格局
 st.set_page_config(page_title="台北電影推薦", page_icon="🎬", layout="wide")
 
-# CSS 注入：完美實現深紅劇院布幕背景與黑黃膠捲卡片
+# 強大 CSS 裝飾注入：精準重現上傳範例中的所有視覺細節
 st.markdown("""
     <style>
-    /* 1. 整個網頁的背景改為電影院深紅絲絨帷幕漸層 */
+    /* 1. 全域背景：電影院深夜黑 */
     [data-testid="stAppViewContainer"] {
-        background: linear-gradient(135deg, #4a0007 0%, #1a0002 50%, #0a0001 100%) !important;
-    }
-    
-    /* 2. 頁面主體內容區塊限制與發光微調 */
-    .block-container {
-        padding-top: 2rem !important;
-        padding-bottom: 2rem !important;
+        background-color: #0b0b0d !important;
     }
 
-    /* 3. 主標題文字與提示清晰度優化 */
-    h1 {
+    /* 2. 側邊欄：紅絲絨布幕背景 + 左右雙條黑底金齒孔底片膠捲（100% 還原範例左側） */
+    [data-testid="stSidebar"] {
+        background: linear-gradient(0deg, #500005 0%, #7a0010 50%, #400003 100%) !important;
+        position: relative !important;
+        box-shadow: inset -5px 0 20px rgba(0,0,0,0.8) !important;
+    }
+    /* 側欄左側膠捲條 */
+    [data-testid="stSidebar"]::before {
+        content: "11A ▷ 12";
+        writing-mode: vertical-rl;
+        text-orientation: mixed;
+        color: #ffcc00;
+        font-family: monospace;
+        font-size: 11px;
+        font-weight: bold;
+        text-align: center;
+        padding-top: 50px;
+        position: absolute;
+        left: 0; top: 0; bottom: 0; width: 18px;
+        background-color: #000000;
+        background-image: radial-gradient(circle, #ffcc00 35%, transparent 40%);
+        background-size: 18px 24px;
+        background-repeat: repeat-y;
+        border-right: 1.5px solid #ffcc00;
+        z-index: 10;
+    }
+    /* 側欄右側膠捲條 */
+    [data-testid="stSidebar"]::after {
+        content: "";
+        position: absolute;
+        right: 0; top: 0; bottom: 0; width: 18px;
+        background-color: #000000;
+        background-image: radial-gradient(circle, #ffcc00 35%, transparent 40%);
+        background-size: 18px 24px;
+        background-repeat: repeat-y;
+        border-left: 1.5px solid #ffcc00;
+        z-index: 10;
+    }
+
+    /* 3. 百老匯復古霓虹跑馬燈大標題區塊（完全對齊範例核心） */
+    .broadway-marquee {
+        background: linear-gradient(180deg, #700008 0%, #3a0003 100%) !important;
+        border: 4px solid #ffcc00 !important;
+        border-radius: 14px !important;
+        padding: 30px 20px !important;
+        text-align: center !important;
+        /* 模擬燈泡發光鏈 */
+        box-shadow: 0 0 0 4px #000000, 
+                    0 0 20px #ffcc00, 
+                    inset 0 0 20px rgba(0,0,0,0.6) !important;
+        position: relative;
+        margin-bottom: 35px !important;
+    }
+    /* 建立四週規律排列的復古發光圓形燈泡效果 */
+    .broadway-marquee::before {
+        content: "";
+        position: absolute;
+        top: 4px; left: 4px; right: 4px; bottom: 4px;
+        border: 2px dashed #ffffff;
+        border-radius: 10px;
+        opacity: 0.15;
+        pointer-events: none;
+    }
+    .broadway-title {
         color: #ffffff !important;
+        font-size: 2.6rem !important;
         font-weight: 900 !important;
-        text-shadow: 0 0 10px #ffcc00, 2px 2px 5px #000000 !important;
+        letter-spacing: 2px !important;
+        text-shadow: 0 0 12px #ffcc00, 2px 2px 4px #000000 !important;
+        margin: 0 0 10px 0 !important;
     }
-    .stMarkdown p {
-        color: #ffffff !important;
+    .broadway-subtitle {
+        color: #ffcc00 !important;
         font-size: 1.15rem !important;
-        text-shadow: 1px 1px 3px #000000 !important;
+        font-weight: normal !important;
+        margin: 0 !important;
+        text-shadow: 1px 1px 2px #000000 !important;
     }
 
-    /* 4. 核心文字輸入框樣式優化：純白底、純黑字、黃金霓虹邊框（保證極致清晰） */
-    div[data-testid="stTextInput"] label p {
-        color: #ffcc00 !important;
-        font-size: 1.25rem !important;
+    /* 4. 單格數據卡片樣式（完全對齊範例左卡，金黃微光圓角外框） */
+    .single-stat-card {
+        background: linear-gradient(135deg, #1f1f24 0%, #151518 100%) !important;
+        border: 2px solid #ffcc00 !important;
+        border-radius: 10px !important;
+        padding: 20px 25px !important;
+        box-shadow: 0 0 15px rgba(255, 204, 0, 0.25) !important;
+        margin-bottom: 30px !important;
+        max-width: 400px;
+    }
+    .stat-label {
+        color: #ffffff !important;
+        font-size: 1.05rem !important;
         font-weight: bold !important;
-        text-shadow: 2px 2px 4px #000000 !important;
+        opacity: 0.9;
+        margin-bottom: 8px;
+    }
+    .stat-value {
+        color: #ffcc00 !important;
+        font-size: 2.5rem !important;
+        font-weight: 900 !important;
+        text-shadow: 1px 1px 2px #000000 !important;
+    }
+
+    /* 5. 輸入框文字與提示：100% 清晰度提升 */
+    div[data-testid="stTextInput"] label p {
+        color: #ffffff !important;
+        font-size: 1.4rem !important;
+        font-weight: bold !important;
     }
     div[data-testid="stTextInput"] input {
-        background-color: #ffffff !important;
-        color: #000000 !important;
-        font-size: 1.2rem !important;
-        font-weight: bold !important;
-        border: 3.5px solid #ffcc00 !important;
-        border-radius: 6px !important;
-        box-shadow: 0 0 15px rgba(255, 204, 0, 0.5) !important;
-        padding: 12px !important;
-    }
-    div[data-testid="stTextInput"] input::placeholder {
-        color: #555555 !important;
-        opacity: 1 !important;
-    }
-
-    /* 5. 劇院大紅啟動按鈕 */
-    div.stButton > button:first-child {
-        background: linear-gradient(90deg, #ff0033 0%, #990011 100%) !important;
-        color: #ffffff !important;
-        border: 2px solid #ffcc00 !important;
-        border-radius: 6px !important;
-        font-size: 1.3rem !important;
-        font-weight: 900 !important;
-        padding: 10px 0px !important;
-        box-shadow: 0 4px 15px rgba(255, 0, 51, 0.4) !important;
-        text-shadow: 1px 1px 2px #000000 !important;
-        transition: all 0.3s ease;
-    }
-    div.stButton > button:first-child:hover {
-        box-shadow: 0 0 25px #ff0033 !important;
-        border-color: #ffffff !important;
-        transform: scale(1.01);
-    }
-
-    /* 6. 🎬 實體底片膠捲卡片樣式（完美重現黃黑草圖結構） */
-    .film-strip-card {
-        background-color: #000000 !important;
-        border: 3px solid #ffcc00 !important;
-        border-radius: 8px !important;
-        margin-top: 25px !important;
-        margin-bottom: 25px !important;
-        box-shadow: 0 10px 30px rgba(0,0,0,0.8) !important;
-        overflow: hidden !important;
-    }
-    /* 膠捲頂部與底部齒孔邊條帶有經典的 11A ▷ 12 標記 */
-    .film-strip-holes {
-        background-color: #000000 !important;
-        color: #ffcc00 !important;
-        font-family: 'Courier New', monospace !important;
-        font-size: 16px !important;
-        font-weight: bold !important;
-        letter-spacing: 18px !important;
-        padding: 6px 10px !important;
-        text-align: center !important;
-    }
-    .film-strip-holes.top {
-        border-bottom: 3px solid #ffcc00 !important;
-    }
-    .film-strip-holes.bottom {
-        border-top: 3px solid #ffcc00 !important;
-    }
-    /* 膠捲內部的電影格內容：深色基底、文字極致清晰 */
-    .film-strip-content {
-        background: linear-gradient(180deg, #1f0003 0%, #0d0002 100%) !important;
-        padding: 25px 30px !important;
-    }
-    .film-movie-title {
-        color: #ffcc00 !important;
-        font-size: 2.1rem !important;
-        font-weight: 900 !important;
-        text-shadow: 2px 2px 4px #000000 !important;
-        margin-bottom: 15px !important;
-    }
-    .film-movie-meta {
+        background-color: #1a1a1f !important;
         color: #ffffff !important;
         font-size: 1.15rem !important;
-        line-height: 1.8 !important;
+        border: 2px solid #ffcc00 !important;
+        box-shadow: inset 0 2px 4px rgba(0,0,0,0.5) !important;
     }
-    .film-movie-meta strong {
-        color: #ffcc00 !important;
+
+    /* 6. 劇院大紅長條啟動按鈕（完全對齊範例寬度與色調） */
+    div.stButton > button:first-child {
+        background: linear-gradient(90deg, #e60021 0%, #aa0012 100%) !important;
+        color: #ffffff !important;
+        border: 2px solid #ffcc00 !important;
+        border-radius: 8px !important;
+        font-size: 1.25rem !important;
+        font-weight: 900 !important;
+        width: 100% !important;
+        padding: 12px 0 !important;
+        box-shadow: 0 5px 15px rgba(230, 0, 33, 0.4) !important;
+        text-shadow: 1px 1px 3px #000000 !important;
     }
     
-    /* 移除原生 expander 的外框，使其與膠捲卡片完美融為一體 */
+    /* 7. 搜尋結果：改造成膠捲卡片樣式 */
     div[data-testid="stExpander"] {
-        border: none !important;
-        background: transparent !important;
-        box-shadow: none !important;
-    }
-    div[data-testid="stExpander"] details {
-        border: none !important;
-        background: transparent !important;
+        background-color: #141417 !important;
+        border: 2px solid #ffcc00 !important;
+        border-radius: 8px !important;
+        box-shadow: 0 5px 15px rgba(0,0,0,0.5) !important;
     }
     div[data-testid="stExpander"] summary {
-        display: none !important; /* 隱藏原本的摺疊標題，由膠捲大標題接管 */
+        color: #ffcc00 !important;
+        font-weight: bold !important;
+        font-size: 1.2rem !important;
     }
     </style>
 """, unsafe_allow_html=True)
 
-# 以下元件輸出字句 100% 維持原樣不變
-st.title("🎬 台北影城智慧電影推薦系統")
-st.markdown("本系統已將 **RapidFuzz 模糊匹配** 與 **雙向生活字典** 完美整合！")
+# --- 🎯 側邊欄裝飾（僅作為大氣布幕展示，原內容與邏輯不變） ---
+with st.sidebar:
+    st.markdown("<h3 style='color:#ffcc00;text-align:center;margin-top:20px;'>🎬 影廳導覽</h3>", unsafe_allow_html=True)
+    st.markdown("<p style='color:#ffffff;font-size:0.9rem;padding:0 10px;'>輸入您的心情，系統將自動比對推薦最觸動心靈的精選藝術與院線佳作。</p>", unsafe_allow_html=True)
 
+# --- 🎫 主頁面百老匯大霓虹燈標題（已更換名字，且拿掉任何 RapidFuzz PRO 字樣） ---
+st.markdown("""
+    <div class="broadway-marquee">
+        <h1 class="broadway-title">🎬 台北影城智慧電影推薦系統</h1>
+        <p class="broadway-subtitle">本系統已將 <b>RapidFuzz 模糊匹配</b> 與 <b>雙向生活字典</b> 完美整合！</p>
+    </div>
+""", unsafe_allow_html=True)
+
+# --- 📊 院線總數數據卡片（完全對齊範例左側單卡，移除右側 RapidFuzz PRO 卡） ---
+movies_db = get_absolute_comprehensive_database_2026()
+st.markdown(f"""
+    <div class="single-stat-card">
+        <div class="stat-label">🎬 院線總上映部數</div>
+        <div class="stat-value">{len(movies_db)} 部</div>
+    </div>
+""", unsafe_allow_html=True)
+
+# --- ✍️ 售票口輸入區（100% 保留您原本的標題文字與 Placeholder） ---
 user_input = st.text_input(
     "👉 輸入您的心情、生活狀態或想找的關鍵字：", 
     placeholder="試試看輸入：我分手了、今天心情不錯、想看加非貓、大場面飆車"
 )
 
+# --- 🚀 啟動按鈕與後端完全不變的邏輯比對 ---
 if st.button("🚀 啟動智慧推薦"):
     if user_input.strip() == "":
         st.warning("請先輸入一些關鍵字喔！")
     else:
-        movies_db = get_absolute_comprehensive_database_2026()
         recommended = recommend_movies(user_input, movies_db)
 
         if not recommended:
@@ -363,21 +405,7 @@ if st.button("🚀 啟動智慧推薦"):
             st.success(f"🧠 系統成功解析情境！幫您找到 {len(recommended)} 部適合的電影：")
             
             for m in recommended:
-                # 透過 HTML 容器將原本的 expander 完整包裝成黑黃齒孔底片膠捲卡片
-                st.markdown("""
-                <div class="film-strip-card">
-                    <div class="film-strip-holes top">■ ■ ■ 11A ▷ ■ ■ ■ 12 ■ ■ ■</div>
-                    <div class="film-strip-content">
-                """, unsafe_allow_html=True)
-                
-                # 保留您原本一模一樣的 expander 與內文結構、字句
                 with st.expander(f"🍿 {m['title']}", expanded=True):
                     st.markdown(f"**🎭 電影類型**：`{m['genre']}`")
                     st.markdown(f"**📍 上映影城**：{m['theater']}")
                     st.markdown(f"**📝 劇情簡介**：{m['story']}")
-                
-                st.markdown("""
-                    </div>
-                    <div class="film-strip-holes bottom">■ ■ ■ 11A ▷ ■ ■ ■ 12 ■ ■ ■</div>
-                </div>
-                """, unsafe_allow_html=True)
